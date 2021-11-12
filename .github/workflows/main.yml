@@ -2,15 +2,15 @@ name: Main
 
 jobs:
   build:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-    - name: Install NPM
-      uses: bahmutov/npm-install@v1
-    - name: Install resume-cli
-      run:  npm install resume-cli jsonresume-theme-even
-    - name: Create resume.html
-      run:  resume export resume.html --theme even
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+      - name: Install NPM
+        uses: bahmutov/npm-install@v1
+      - name: Install resume-cli
+        run:  npm install resume-cli jsonresume-theme-even
+      - name: Create resume.html
+        run:  resume export resume.html --theme even
