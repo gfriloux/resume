@@ -1,5 +1,10 @@
 name: Main
 
+on:
+  push:
+    branches:
+      - workflow
+
 jobs:
   build:
     runs-on: ubuntu-latest
