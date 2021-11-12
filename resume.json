@@ -3,7 +3,7 @@
 		"name": "Guillaume Friloux",
 		"label": "Programmer",
 		"email": "guillaume@friloux.me",
-		"website": "https://guillaume.friloux.me",
+		"url": "https://guillaume.friloux.me",
 		"location": { "countryCode" : "FR" },
 		"profiles": [{
 			"network": "github",
@@ -14,6 +14,7 @@
 	"work": [
 	{
 		"name": "ASP France / AMTrust IT / DSIIG",
+		"url": "https://www.amtrust.fr",
 		"position": "Software Architect",
 		"startDate": "2013-11-01",
 		"summary": "Software architect on Backup project.",
@@ -68,7 +69,7 @@
 	}],
 	"education": [
 		{
-			"institution": "Institut Universitaire de Technologie des Pays de l'Adour",
+			"institution": "IUT des Pays de l'Adour",
 			"studyType": "Bachelors",
 			"area": "Networks and telecomunications",
 			"startDate": "2005-09-01",
