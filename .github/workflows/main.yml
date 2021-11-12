@@ -25,3 +25,9 @@ jobs:
 
       - name: Create resume.html
         run:  npx resume export resume.html --theme even
+
+      - name: Archiving output
+        uses: actions/upload-artifact@v2
+        with:
+          name: resume.html
+          path: resume.html
