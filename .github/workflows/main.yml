@@ -31,3 +31,12 @@ jobs:
         with:
           name: resume.html
           path: resume.html
+
+      - name: Create gh-pages
+        run:  mkdir gh-pages && mv resume.html gh-pages/index.html
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: gh-pages
