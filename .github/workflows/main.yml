@@ -1,9 +1,13 @@
 name: Main
 
 on:
-  push:
+  [push, pull_request]:
     branches:
+      - main
+      - develop
       - workflow
+  release:
+    types: published
 
 jobs:
   build:
@@ -26,6 +30,9 @@ jobs:
       - name: Create resume.html
         run:  npx resume export resume.html --theme even
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Archiving output
         uses: actions/upload-artifact@v2
         with:
