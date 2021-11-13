@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Guillaume Friloux</title>
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap">
+    <style>:root {
+  color-scheme: light dark;
+
+  --color-background: #ffffff;
+  --color-primary: #212529;
+  --color-secondary: #95a5a6;
+  --color-muted: #f4f6f6;
+  --color-accent: #f1c40f;
+  --color-link: #2ecc71;
+
+  --scale-ratio: 1.25;
+  --scale0: 1rem;
+  --scale1: calc(var(--scale0) * var(--scale-ratio));
+  --scale2: calc(var(--scale1) * var(--scale-ratio));
+  --scale3: calc(var(--scale2) * var(--scale-ratio));
+  --scale4: calc(var(--scale3) * var(--scale-ratio));
+  --scale5: calc(var(--scale4) * var(--scale-ratio));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #181a1b;
+    --color-primary: #d1cdc7;
+    --color-secondary: #aaa398;
+    --color-muted: #1e2021;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-primary);
+  display: grid;
+  font: 1em/1.5 Lato, sans-serif;
+  gap: 2em;
+  grid-template-columns:
+    [full-start]
+    1fr
+    [main-start side-start]
+    minmax(min-content, 12em)
+    [side-end content-start]
+    minmax(min-content, 36em)
+    [main-end content-end]
+    1fr
+    [full-end];
+  grid-template-rows: auto [content] 0;
+  margin-bottom: 4em;
+}
+
+body::before {
+  content: '';
+  grid-column: full;
+  grid-row: content;
+}
+
+ol,
+ul {
+  padding-left: 1em;
+}
+
+li + li {
+  margin-top: 0.4em;
+}
+
+li::marker,
+.network {
+  color: var(--color-secondary);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:focus,
+a:hover {
+  color: var(--color-accent);
+}
+
+h1,
+h2,
+h3,
+h5 {
+  font-weight: normal;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--scale5);
+}
+
+h2 {
+  color: var(--color-secondary);
+  font-size: var(--scale4);
+}
+
+h3 {
+  color: var(--color-accent);
+  font-size: var(--scale3);
+  grid-column: side;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: var(--scale2);
+}
+
+h5 {
+  font-size: var(--scale1);
+}
+
+h6 {
+  font-size: var(--scale0);
+}
+
+blockquote {
+  border-left: 0.2em solid var(--color-muted);
+  padding-left: 1em;
+}
+
+cite {
+  color: var(--color-secondary);
+  font-style: inherit;
+}
+
+cite::before {
+  content: '— ';
+}
+
+svg {
+  margin-right: 0.2em;
+  vertical-align: -0.2em;
+}
+
+.masthead {
+  background: var(--color-muted);
+  display: inherit;
+  gap: inherit;
+  grid-column: full;
+  grid-template-columns: inherit;
+  padding: 4em 0;
+  text-align: center;
+}
+
+.masthead > *,
+section {
+  grid-column: main;
+}
+
+.masthead > img {
+  border-radius: 50%;
+  margin: 0 auto;
+  max-width: 12em;
+}
+
+article > * + *,
+blockquote > * + * {
+  margin-top: 0.6em;
+}
+
+.stack {
+  display: grid;
+  gap: 1.5em;
+}
+
+.icon-list {
+  list-style: none;
+  padding: 0;
+}
+
+.grid-list {
+  display: grid;
+  gap: 1em;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.tag-list > li {
+  background: var(--color-muted);
+  margin: 0 0.2em 0.2em 0;
+  padding: 0.2em 0.6em;
+}
+
+.bullet-item:not(:first-child)::before {
+  content: '· ';
+  margin: 0 0.2em;
+}
+
+@media print, (min-width: 48em) {
+  h3 {
+    text-align: right;
+    margin-bottom: inherit;
+  }
+
+  .masthead {
+    text-align: inherit;
+  }
+
+  .masthead > *,
+  section {
+    grid-column: content;
+  }
+
+  .masthead img {
+    grid-column: side;
+    grid-row: span 2;
+    max-width: 100%;
+  }
+
+  section {
+    display: contents;
+  }
+
+  .grid-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+  </head>
+  <body>
+      <header class="masthead">
+        <div>
+            <h1>Guillaume Friloux</h1>
+            <h2>Programmer</h2>
+        </div>
+        <ul class="icon-list">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:guillaume@friloux.me">guillaume@friloux.me</a>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <a href="https://guillaume.friloux.me">guillaume.friloux.me</a>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <a href="https://github.com/gfriloux">gfriloux</a>
+                <span class="network">(github)</span>
+            </li>
+        </ul>
+      </header>
+
+      <section id="work">
+        <h3>Work</h3>
+        <div class="stack">
+            <article>
+              <header>
+                <h4>Software Architect</h4>
+                <div>
+                  <strong><a href="https://www.amtrust.fr">ASP France / AMTrust IT / DSIIG</a></strong>
+                </div>
+                <div>
+                  <time datetime="2013-11-01">Nov 2013</time> –
+                  Present
+                </div>
+              </header>
+                <p>Software architect on Backup project.</p>
+                <ul>
+                    <li><p>Author of Server monitoring software over XMPP (Handles hundreds of servers).</p></li>
+                    <li><p>Portage of apps under Mac OSX, FreeBSD, GNU/Linux, Windows.</p></li>
+                </ul>
+            </article>
+            <article>
+              <header>
+                <h4>C Developer</h4>
+                <div>
+                  <strong>ASP64</strong>
+                </div>
+                <div>
+                  <time datetime="2007-09-01">Sep 2007</time> –
+                  <time datetime="2013-11-01">Nov 2013</time>
+                </div>
+              </header>
+                <p>Software architect on multiple projects.</p>
+                <ul>
+                    <li><p>Seek and removal of software bottlenecks.</p></li>
+                    <li><p>In charge of pentesting softwares.</p></li>
+                    <li><p>Imported EFL into our projects.</p></li>
+                    <li><p>Initiated a project to automate installation and setup of servers using PXE boot and web interface.</p></li>
+                    <li><p>Started a project allowing to manage servers over XMPP, using EFL.</p></li>
+                    <li><p>Started a project that streams syslog messages of servers into an external database (ElasticSearch).</p></li>
+                    <li><p>Rewrote ASP64's backup solutions using EFL.</p></li>
+                </ul>
+            </article>
+            <article>
+              <header>
+                <h4>Web developer</h4>
+                <div>
+                  <strong><a href="http://www.ustaritz.fr/">City council of Ustaritz</a></strong>
+                </div>
+                <div>
+                  <time datetime="2007-04-01">Apr 2007</time> –
+                  <time datetime="2007-06-30">Jun 2007</time>
+                </div>
+              </header>
+                <p>Rewrite of the website from scratch.</p>
+            </article>
+            <article>
+              <header>
+                <h4>Network Administrator</h4>
+                <div>
+                  <strong><a href="https://fr.wikipedia.org/wiki/Base_a%C3%A9rienne_118_Mont-de-Marsan">Airbase 118</a></strong>
+                </div>
+                <div>
+                  <time datetime="2006-03-01">Mar 2006</time> –
+                  <time datetime="2006-06-01">Jun 2006</time>
+                </div>
+              </header>
+                <p>Network administrator for army (End of study internship)</p>
+                <ul>
+                    <li><p>Setup of routers on classified and confidential defense networks</p></li>
+                    <li><p>Replaced internet gateway, adding authentification proxy and filtering.</p></li>
+                </ul>
+            </article>
+            <article>
+              <header>
+                <h4>Web developer</h4>
+                <div>
+                  <strong><a href="https://fr.wikipedia.org/wiki/5e_r%C3%A9giment_d&#x27;h%C3%A9licopt%C3%A8res_de_combat">5th attack helicopter</a></strong>
+                </div>
+                <div>
+                  <time datetime="2005-01-01">Jan 2005</time> –
+                  <time datetime="2005-06-01">Jun 2005</time>
+                </div>
+              </header>
+                <p>Wrote a webapp for managing stocks of informatic hardware (School project).</p>
+            </article>
+        </div>
+      </section>
+      <section id="education">
+        <h3>Education</h3>
+        <div class="stack">
+            <article>
+              <header>
+                <h4>IUT des Pays de l&#x27;Adour</h4>
+                  <strong>Networks and telecomunications</strong>
+                <div>
+                  <time datetime="2005-09-01">Sep 2005</time> –
+                  <time datetime="2006-07-01">Jul 2006</time>
+                </div>
+              </header>
+                <p>Bachelors</p>
+            </article>
+        </div>
+      </section>
+      <section id="skills">
+        <h3>Skills</h3>
+        <div class="grid-list">
+            <div>
+                <h4>Programming</h4>
+                <ul class="tag-list">
+                    <li>Shellscript</li>
+                    <li>C</li>
+                    <li>Rust</li>
+                    <li>MySQL</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Protocols</h4>
+                <ul class="tag-list">
+                    <li>XMPP</li>
+                    <li>HTTP</li>
+                    <li>FTP</li>
+                    <li>SFTP</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Operating systems</h4>
+                <ul class="tag-list">
+                    <li>Archlinux</li>
+                    <li>FreeBSD</li>
+                    <li>Debian</li>
+                    <li>Gentoo</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Tools</h4>
+                <ul class="tag-list">
+                    <li>Docker</li>
+                    <li>Docker Compose</li>
+                    <li>Gitlab</li>
+                    <li>Traefik</li>
+                    <li>Valgrind</li>
+                    <li>GDB</li>
+                </ul>
+            </div>
+        </div>
+      </section>
+      <section id="languages">
+        <h3>Languages</h3>
+        <div class="grid-list">
+            <div>
+                <h4>French</h4>
+              Native speaker
+            </div>
+            <div>
+                <h4>English</h4>
+              Read/Write
+            </div>
+        </div>
+      </section>
+  </body>
+</html>
