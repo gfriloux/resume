@@ -1,0 +1,67 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - workflow
+  release:
+    types: published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Install NPM
+        uses: bahmutov/npm-install@v1
+
+      - name: Install resume-cli
+        run:  npm install resume-cli jsonresume-theme-even
+
+      - name: Create resume
+        run:  |
+          npx resume export resume.html --theme even
+          npx resume export resume.pdf --theme even
+
+      - name: Save files
+        run:  |
+          mkdir output
+          mv resume.{pdf,html} output/
+
+      - name: Archiving output
+        uses: actions/upload-artifact@v2
+        with:
+          name: resume
+          path: output
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: resume
+
+      - name: Create gh-pages
+        run:  |
+          mkdir gh-pages
+          mv resume.html gh-pages/index.html
+          mv resume.pdf  gh-pages/gfriloux.resume.pdf
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: gh-pages
