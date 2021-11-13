@@ -9,6 +9,11 @@
 			"network": "github",
 			"username": "gfriloux",
 			"url": "https://github.com/gfriloux"
+		},
+		{
+			"network": "download",
+			"username": "Download my resume",
+			"url": "https://gfriloux.github.io/resume/gfriloux.resume.pdf"
 		}]
 	},
 	"work": [
