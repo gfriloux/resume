@@ -25,7 +25,9 @@
 		"summary": "Software architect on Backup project.",
 		"highlights": [
 			"Author of Server monitoring software over XMPP (Handles hundreds of servers).",
-			"Portage of apps under Mac OSX, FreeBSD, GNU/Linux, Windows."
+			"Portage of apps under Mac OSX, FreeBSD, GNU/Linux, Windows.",
+			"Migration of apps from C to rust.",
+			"Defining new infrastructure for existing projects."
 		]
 	},
 	{
@@ -95,7 +97,7 @@
 		},
 		{
 			"name": "Tools",
-			"keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Valgrind", "GDB"]
+			"keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Valgrind", "GDB", "Rancher 1.7"]
 		}
 	],
 	"languages": [{
