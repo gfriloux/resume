@@ -22,6 +22,7 @@
 		"url": "https://www.amtrust.fr",
 		"position": "Software Architect",
 		"startDate": "2013-11-01",
+		"endDate": "2021-12-01",
 		"summary": "Software architect on Backup project.",
 		"highlights": [
 			"Author of Server monitoring software over XMPP (Handles hundreds of servers).",
