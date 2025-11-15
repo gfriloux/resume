@@ -2,10 +2,6 @@
   "dependencies": {
     "jsonresume-theme-even": "^0.15.0",
     "puppeteer": "^24.30.0",
-    "resume-cli": "^3.0.8",
     "resumed": "^6.1.0"
-  },
-  "scripts": {
-    "export": "resume export resume.pdf --theme even"
   }
 }
