@@ -27,12 +27,11 @@ jobs:
       - name: Create resume
         run:  |
           npx resumed render --theme jsonresume-theme-even
-          npx resumed export --theme jsonresume-theme-even
 
       - name: Save files
         run:  |
           mkdir output
-          mv resume.{pdf,html} output/
+          mv resume.html output/
 
       - name: Archiving output
         uses: actions/upload-artifact@v4
@@ -55,7 +54,6 @@ jobs:
         run:  |
           mkdir gh-pages
           mv resume.html gh-pages/index.html
-          mv resume.pdf  gh-pages/gfriloux.resume.pdf
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4
