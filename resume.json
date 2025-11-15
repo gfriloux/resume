@@ -1,126 +1,134 @@
 {
-	"basics": {
-		"name": "Guillaume Friloux",
-		"label": "Programmer",
-		"email": "guillaume@friloux.me",
-		"url": "https://guillaume.friloux.me",
-		"location": { "countryCode" : "FR" },
-		"profiles": [{
-			"network": "github",
-			"username": "gfriloux",
-			"url": "https://github.com/gfriloux"
-		},
-		{
-			"network": "download",
-			"username": "Download my resume",
-			"url": "https://gfriloux.github.io/resume/gfriloux.resume.pdf"
-		}]
-	},
-	"work": [
-	{
-		"name": "Galilée / DATASOLUTION",
-		"url": "https://www.datasolution.fr",
-		"position": "Linux system administrator",
-		"startDate": "2022-03-01",
-		"endDate": "",
-		"summary": "Admin Linux servers on OVH/AWS",
-		"highlights": [
-			"Write ansible playbooks and roles",
-			"Write terraform code for AWS",
-			"Debian / Rocky Linux",
-			"Write nix/devbox envs"
-		]
-	},
-	{
-		"name": "ASP France / AMTrust IT / DSIIG",
-		"url": "https://www.amtrust.fr",
-		"position": "Software Architect",
-		"startDate": "2013-11-01",
-		"endDate": "2021-12-01",
-		"summary": "Software architect on Backup project.",
-		"highlights": [
-			"Author of Server monitoring software over XMPP (Handles hundreds of servers).",
-			"Portage of apps under Mac OSX, FreeBSD, GNU/Linux, Windows.",
-			"Migration of apps from C to rust.",
-			"Defining new infrastructure for existing projects."
-		]
-	},
-	{
-		"name": "ASP64",
-		"position": "C Developer",
-		"startDate": "2007-09-01",
-		"endDate": "2013-11-01",
-		"summary": "Software architect on multiple projects.",
-		"highlights": [
-			"Seek and removal of software bottlenecks.",
-			"In charge of pentesting softwares.",
-			"Imported EFL into our projects.",
-			"Initiated a project to automate installation and setup of servers using PXE boot and web interface.",
-			"Started a project allowing to manage servers over XMPP, using EFL.",
-			"Started a project that streams syslog messages of servers into an external database (ElasticSearch).",
-			"Rewrote ASP64's backup solutions using EFL."
-		]
-	},
-	{
-		"name": "City council of Ustaritz",
-		"position": "Web developer",
-		"url": "http://www.ustaritz.fr/",
-		"startDate": "2007-04-01",
-		"endDate": "2007-06-30",
-		"summary": "Rewrite of the website from scratch."
-	},
-	{
-		"name": "Airbase 118",
-		"position": "Network Administrator",
-		"url": "https://fr.wikipedia.org/wiki/Base_a%C3%A9rienne_118_Mont-de-Marsan",
-		"startDate": "2006-03-01",
-		"endDate": "2006-06-01",
-		"summary": "Network administrator for army (End of study internship)",
-		"highlights": [
-			"Setup of routers on classified and confidential defense networks",
-			"Replaced internet gateway, adding authentification proxy and filtering."
-		]
-	},
-	{
-		"name": "5th attack helicopter",
-		"position": "Web developer",
-		"url": "https://fr.wikipedia.org/wiki/5e_r%C3%A9giment_d'h%C3%A9licopt%C3%A8res_de_combat",
-		"startDate": "2005-01-01",
-		"endDate": "2005-06-01",
-		"summary": "Wrote a webapp for managing stocks of informatic hardware (School project)."
-	}],
-	"education": [
-		{
-			"institution": "IUT des Pays de l'Adour",
-			"studyType": "Bachelors",
-			"area": "Networks and telecomunications",
-			"startDate": "2005-09-01",
-			"endDate": "2006-07-01"
-	}],
-	"skills": [
-		{
-			"name": "Programming",
-			"keywords": ["Shellscript", "C", "Rust", "MySQL"]
-		},
-		{
-			"name": "Protocols",
-			"keywords": ["XMPP", "HTTP", "FTP", "SFTP"]
-		},
-		{
-			"name": "Operating systems",
-			"keywords": ["Archlinux", "FreeBSD", "Debian", "Gentoo"]
-		},
-		{
-			"name": "Tools",
-			"keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Terraform", "Ansible", "Nix", "Devbox"]
-		}
-	],
-	"languages": [{
-		"language": "French",
-		"fluency": "Native speaker"
-	},
-	{
-		"language": "English",
-		"fluency": "Read/Write"
-	}]
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Guillaume Friloux",
+    "label": "Programmer",
+    "email": "guillaume@friloux.me",
+    "url": "https://guillaume.friloux.me",
+    "location": { "countryCode" : "FR" },
+    "profiles": [{
+      "network": "github",
+      "username": "gfriloux",
+      "url": "https://github.com/gfriloux"
+    },
+    {
+      "network": "download",
+      "username": "Download my resume",
+      "url": "https://gfriloux.github.io/resume/gfriloux.resume.pdf"
+    }]
+  },
+  "work": [
+    {
+      "name": "Galilée / DATASOLUTION",
+      "url": "https://www.datasolution.fr",
+      "position": "Linux system administrator",
+      "startDate": "2022-03-01",
+      "endDate": "2025-12-12",
+      "summary": "Admin Linux servers on OVH/AWS",
+      "highlights": [
+        "Write ansible playbooks and roles",
+        "Write terraform code for AWS",
+        "Debian / Rocky Linux",
+        "Write nix/devbox envs"
+      ]
+    },
+    {
+      "name": "ASP France / AMTrust IT / DSIIG",
+      "url": "https://www.amtrust.fr",
+      "position": "Software Architect",
+      "startDate": "2013-11-01",
+      "endDate": "2021-12-01",
+      "summary": "Software architect on Backup project.",
+      "highlights": [
+        "Author of Server monitoring software over XMPP (Handles hundreds of servers).",
+        "Portage of apps under Mac OSX, FreeBSD, GNU/Linux, Windows.",
+        "Migration of apps from C to rust.",
+        "Defining new infrastructure for existing projects."
+      ]
+    },
+    {
+      "name": "ASP64",
+      "position": "C Developer",
+      "startDate": "2007-09-01",
+      "endDate": "2013-11-01",
+      "summary": "Software architect on multiple projects.",
+      "highlights": [
+        "Seek and removal of software bottlenecks.",
+        "In charge of pentesting softwares.",
+        "Imported EFL into our projects.",
+        "Initiated a project to automate installation and setup of servers using PXE boot and web interface.",
+        "Started a project allowing to manage servers over XMPP, using EFL.",
+        "Started a project that streams syslog messages of servers into an external database (ElasticSearch).",
+        "Rewrote ASP64's backup solutions using EFL."
+      ]
+    },
+    {
+      "name": "City council of Ustaritz",
+      "position": "Web developer",
+      "url": "http://www.ustaritz.fr/",
+      "startDate": "2007-04-01",
+      "endDate": "2007-06-30",
+      "summary": "Rewrite of the website from scratch."
+    },
+    {
+      "name": "Airbase 118",
+      "position": "Network Administrator",
+      "url": "https://fr.wikipedia.org/wiki/Base_a%C3%A9rienne_118_Mont-de-Marsan",
+      "startDate": "2006-03-01",
+      "endDate": "2006-06-01",
+      "summary": "Network administrator for army (End of study internship)",
+      "highlights": [
+        "Setup of routers on classified and confidential defense networks",
+        "Replaced internet gateway, adding authentification proxy and filtering."
+      ]
+    },
+    {
+      "name": "5th attack helicopter",
+      "position": "Web developer",
+      "url": "https://fr.wikipedia.org/wiki/5e_r%C3%A9giment_d'h%C3%A9licopt%C3%A8res_de_combat",
+      "startDate": "2005-01-01",
+      "endDate": "2005-06-01",
+      "summary": "Wrote a webapp for managing stocks of informatic hardware (School project)."
+    }],
+    "education": [
+      {
+        "institution": "IUT des Pays de l'Adour",
+        "studyType": "Bachelors",
+        "area": "Networks and telecomunications",
+        "startDate": "2005-09-01",
+        "endDate": "2006-07-01"
+      }
+    ],
+    "skills": [
+      {
+        "name": "Programming",
+        "keywords": ["Shellscript", "C", "Rust", "MySQL"]
+      },
+      {
+        "name": "Protocols",
+        "keywords": ["XMPP", "HTTP", "FTP", "SFTP"]
+      },
+      {
+        "name": "Operating systems",
+        "keywords": ["Archlinux", "FreeBSD", "Debian", "Gentoo"]
+      },
+      {
+        "name": "Tools",
+        "keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Terraform", "Ansible", "Nix", "Devbox"]
+      }
+    ],
+    "languages": [{
+      "language": "French",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Read/Write"
+    }
+  ],
+  "meta": {
+    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/sample.resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2017-12-24T15:53:00"
+  }
 }
