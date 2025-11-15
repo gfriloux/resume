@@ -25,12 +25,12 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Install resume-cli
-        run:  npm install resume-cli jsonresume-theme-even
+        run:  npm install resumed jsonresume-theme-even puppeteer
 
       - name: Create resume
         run:  |
-          npx resume export resume.html --theme even
-          npx resume export resume.pdf --theme even
+          npx resumed render --theme jsonresume-theme-even
+          npx resumed export --theme jsonresume-theme-even
 
       - name: Save files
         run:  |
