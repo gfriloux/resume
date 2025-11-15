@@ -19,10 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 12
-
-      - name: Install NPM
-        uses: bahmutov/npm-install@v1
+          node-version: 24
 
       - name: Install resume-cli
         run:  npm install resumed jsonresume-theme-even puppeteer
