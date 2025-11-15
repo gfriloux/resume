@@ -18,6 +18,20 @@
 	},
 	"work": [
 	{
+		"name": "Galilée / DATASOLUTION",
+		"url": "https://www.datasolution.fr",
+		"position": "Linux system administrator",
+		"startDate": "2022-03-01",
+		"endDate": "",
+		"summary": "Admin Linux servers on OVH/AWS",
+		"highlights": [
+			"Write ansible playbooks and roles",
+			"Write terraform code for AWS",
+			"Debian / Rocky Linux",
+			"Write nix/devbox envs"
+		]
+	},
+	{
 		"name": "ASP France / AMTrust IT / DSIIG",
 		"url": "https://www.amtrust.fr",
 		"position": "Software Architect",
@@ -98,7 +112,7 @@
 		},
 		{
 			"name": "Tools",
-			"keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Valgrind", "GDB", "Rancher 1.7"]
+			"keywords": ["Docker", "Docker Compose", "Gitlab", "Traefik", "Terraform", "Ansible", "Nix", "Devbox"]
 		}
 	],
 	"languages": [{
