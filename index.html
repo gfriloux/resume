@@ -83,11 +83,17 @@
 
     /* Print-friendly adjustments */
     @media print{
-      body{background:#fff;color:#111}
+      body{border:0;background:#fff;color:#111}
       .container{box-shadow:none;border:0;background:#fff}
       .avatar{background:#ddd;color:#222}
       h2{border-left-color:#444}
-      .item{border:0;background:transparent;padding:6px 0}
+      .item{border:0;background:transparent; padding:0 0; border-radius:0px;margin-bottom:10px; margin: auto;}
+      .item-title{font-size:0.80rem; float: left;}
+      .item-subtitle{font-size:0.6rem; float: right;}
+      p{clear: both;font-size:0.8rem;}
+      .skills-list{border:0;background:transparent;padding:0px 0}
+      .skills-list li{display:inline-block;margin:0 0 0 0;padding:2 0; font-size:0.7rem;}
+      /*.skills-list{display:none;}*/
     }
 
     /* Responsive */
@@ -122,7 +128,7 @@
         <div class="item-subtitle">Mar 2022 – Dec 2025</div>
         <p>Gestion de serveurs et services sur OVH/AWS. Écriture d'envs nix/devbox.</p>
         <ul class="skills-list">
-          <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li>
+          <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li><li>Systemd Portable Services</li>
         </ul>
       </div>
 
