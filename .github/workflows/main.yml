@@ -10,35 +10,6 @@ on:
     types: published
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-
-      - name: Install resume-cli
-        run:  npm install resumed jsonresume-theme-even puppeteer
-
-      - name: Create resume
-        run:  |
-          npx resumed render --theme jsonresume-theme-even
-
-      - name: Save files
-        run:  |
-          mkdir output
-          mv resume.html output/
-
-      - name: Archiving output
-        uses: actions/upload-artifact@v4
-        with:
-          name: resume
-          path: output
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -46,14 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: resume
-
       - name: Create gh-pages
         run:  |
           mkdir gh-pages
-          mv resume.html gh-pages/index.html
+          mv index.html gh-pages/index.html
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
