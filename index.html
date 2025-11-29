@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CV – Guillaume Friloux</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Catppuccin - Mocha (approximate palette) */
+    :root{
+      --bg-crust: #11111b;
+      --bg-mantle: #1a1b26;
+      --bg-base: #232634;
+      --surface0: #2a2c3a;
+      --surface1: #363a4a;
+      --text: #cdd6f4;
+      --subtext: #a6adc8;
+      --overlay: #b4befe;
+      --mauve: #cba6f7;
+      --blue: #89b4fa;
+      --green: #a6e3a1;
+      --peach: #fab387;
+      --accent: var(--mauve);
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+
+    /* Reset / base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(139,133,255,0.06), transparent), var(--bg-mantle);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:24px;
+    }
+
+    /* Container / card */
+    .container{
+      max-width:900px;
+      margin:24px auto;
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:34px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    header{display:flex;gap:24px;align-items:center}
+    .avatar{
+      width:86px;height:86px;border-radius:12px;flex:0 0 86px;
+      background:linear-gradient(135deg,var(--mauve),var(--blue));
+      display:flex;align-items:center;justify-content:center;color:var(--bg-crust);font-weight:700;font-size:28px
+    }
+
+    h1{font-size:1.9rem;margin:0 0 6px 0;color:var(--text)}
+    .meta{list-style:none;padding:0;margin:0;color:var(--subtext)}
+    .meta li{margin:3px 0;font-size:0.95rem}
+    .meta span{color:var(--overlay);font-weight:600;margin-right:6px}
+
+    /* Sections */
+    h2{
+      font-size:1.05rem;margin:26px 0 12px 0;padding-left:10px;border-left:4px solid var(--accent);
+      color:var(--text)
+    }
+    .section{margin-bottom:8px}
+
+    .item{padding:12px 14px;border-radius:8px;margin-bottom:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
+    .item-title{font-weight:600;font-size:1.02rem;color:var(--text)}
+    .item-subtitle{font-size:0.92rem;color:var(--subtext);margin-bottom:8px}
+    p{margin:0;color:var(--subtext)}
+
+    .skills-list{list-style:none;padding:0;margin:6px 0 0 0}
+    .skills-list li{display:inline-block;margin:6px 8px 6px 0;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.9rem;color:var(--text);border:1px solid rgba(255,255,255,0.02)}
+
+    /* Two-column meta for header */
+    .header-right{flex:1}
+    .header-top{display:flex;align-items:center;justify-content:space-between}
+
+    /* Print-friendly adjustments */
+    @media print{
+      body{background:#fff;color:#111}
+      .container{box-shadow:none;border:0;background:#fff}
+      .avatar{background:#ddd;color:#222}
+      h2{border-left-color:#444}
+      .item{border:0;background:transparent;padding:6px 0}
+    }
+
+    /* Responsive */
+    @media (max-width:640px){
+      .container{padding:20px}
+      header{flex-direction:row}
+      .avatar{width:72px;height:72px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="avatar">GF</div>
+      <div class="header-right">
+        <div class="header-top">
+          <div>
+            <h1>Guillaume Friloux</h1>
+            <ul class="meta">
+              <li><span>Email:</span> guillaume@friloux.me</li>
+              <li><span>Site:</span> <a href=https://guillaume.friloux.me>guillaume.friloux.me</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Expérience professionnelle</h2>
+      <div class="item">
+        <div class="item-title">Administrateur système Linux — Galilée / DATASOLUTION</div>
+        <div class="item-subtitle">Mar 2022 – Dec 2025</div>
+        <p>Gestion de serveurs et services sur OVH/AWS. Écriture d'envs nix/devbox.</p>
+        <ul class="skills-list">
+          <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Architecte Logiciel — ASP France / AMTrust IT / DSIIG</div>
+        <div class="item-subtitle">Nov 2013 – Dec 2021</div>
+        <p>Solution de monitoring via XMPP. Portage d'applications sous Mac OSX, FreeBSD, GNU/Linux, Windows. Portage de projets C vers Rust. Mise en place de nouvelles infrastructure.</p>
+        <ul class="skills-list">
+          <li>C</li><li>Rust</li><li>Docker</li><li>Rancher</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Analiste développeur C — ASP64</div>
+        <div class="item-subtitle">Sep 2007 – Nov 2013</div>
+        <p>Recherche performances et sécurité. Projet d'installation de serveurs en chaine. Intégration des librairies EFL dans les projets.</p>
+        <ul class="skills-list">
+          <li>C</li><li>XMPP</li><li>EFL</li><li>MySQL</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Développeur web — Mairie d'Ustaritz</div>
+        <div class="item-subtitle">Apr 2007 – Jun 2007</div>
+        <p>Ré-écriture du site internet.</p>
+        <ul class="skills-list">
+          <li>PHP</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Administrateur réseau — Base Aérienne 118</div>
+        <div class="item-subtitle">Mar 2006 – Jun 2006</div>
+        <p>Configuration de routeur sur les réseaux confidentiel et classfiés défense. Remplacement de la passerelle internet.</p>
+        <ul class="skills-list">
+          <li>Cisco</li><li>iptables</li><li>squid</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-title">Web developer (School project) — 5th attack helicopter</div>
+        <div class="item-subtitle">Jan 2005 – Jun 2005</div>
+        <p>Écriture d'un logiciel de gestion de stock informatique.</p>
+        <ul class="skills-list">
+          <li>PHP</li><li>MySQL</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Formation</h2>
+      <div class="item">
+        <p>IUT des Pays de l'Adour — Networks & Telecommunications, Bachelors (Sep 2005 – Jul 2006)</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Compétences & outils supplémentaires</h2>
+      <ul class="skills-list">
+        <li>Shellscript</li><li>Docker Compose</li><li>Gitlab</li><li>Traefik</li>
+        <li>Nix</li><li>NixOS</li>
+        <li>XMPP</li><li>HTTP</li><li>SFTP</li>
+        <li>Archlinux</li><li>FreeBSD</li><li>Debian</li><li>Gentoo</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
