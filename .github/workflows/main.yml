@@ -19,7 +19,7 @@ jobs:
       - name: Create gh-pages
         run:  |
           mkdir gh-pages
-          mv index.html gh-pages/index.html
+          cp index.html "CV – Guillaume Friloux.pdf" gh-pages/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
