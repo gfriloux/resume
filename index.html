@@ -6,8 +6,9 @@
   <title>CV – Guillaume Friloux</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
   <style>
-    /* Catppuccin - Mocha (approximate palette) */
+    /* Catppuccin - Mocha https://catppuccin.com/palette/ */
     :root{
       --bg-crust: #11111b;
       --bg-mantle: #1a1b26;
@@ -16,8 +17,17 @@
       --surface1: #363a4a;
       --text: #cdd6f4;
       --subtext: #a6adc8;
+      --subtext1: #bac2de;
       --overlay: #b4befe;
+      --rosewater: #f5e0dc;
+      --flamingo: #f2cdcd;
+      --red: #f38ba8;
+      --pink: #f5c2e7;
       --mauve: #cba6f7;
+      --yellow: #f9e2af;
+      --teal: #94e2d5;
+      --sky: #89dceb;
+      --sapphire: #74c7ec;
       --blue: #89b4fa;
       --green: #a6e3a1;
       --peach: #fab387;
@@ -57,29 +67,56 @@
       display:flex;align-items:center;justify-content:center;color:var(--bg-crust);font-weight:700;font-size:28px
     }
 
-    h1{font-size:1.9rem;margin:0 0 6px 0;color:var(--text)}
-    .meta{list-style:none;padding:0;margin:0;color:var(--subtext)}
-    .meta li{margin:3px 0;font-size:0.95rem}
-    .meta span{color:var(--overlay);font-weight:600;margin-right:6px}
+    a {
+      color: var(--mauve);
+      text-decoration:none;
+    }
+
+    h1 {
+      font-size:1.9rem;margin:0 0 6px 0;color:var(--text)
+    }
+    .meta{
+      list-style:none;padding:0;margin:0;color:var(--subtext)
+    }
+    .meta li{
+      margin:3px 0;
+      font-size:0.95rem;
+    }
+    .meta span{
+      color:var(--overlay);font-weight:600;margin-right:6px
+    }
 
     /* Sections */
-    h2{
-      font-size:1.05rem;margin:26px 0 12px 0;padding-left:10px;border-left:4px solid var(--accent);
+    h2 {
+      font-size:1.05rem;margin:26px 0 12px 0;padding-left:10px;border-left:4px solid var(--pink);
       color:var(--text)
     }
     .section{margin-bottom:8px}
 
     .item{padding:12px 14px;border-radius:8px;margin-bottom:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
-    .item-title{font-weight:600;font-size:1.02rem;color:var(--text)}
-    .item-subtitle{font-size:0.92rem;color:var(--subtext);margin-bottom:8px}
-    p{margin:0;color:var(--subtext)}
+    .item-title{
+      font-weight:600;
+      font-size:1.02rem;
+      color:var(--text)
+    }
+    .item-subtitle{
+      font-size:0.92rem;
+      color:var(--subtext);
+      margin-bottom:8px
+    }
+    p{margin:0;color:var(--subtext1)}
 
     .skills-list{list-style:none;padding:0;margin:6px 0 0 0}
     .skills-list li{display:inline-block;margin:6px 8px 6px 0;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.9rem;color:var(--text);border:1px solid rgba(255,255,255,0.02)}
 
     /* Two-column meta for header */
     .header-right{flex:1}
-    .header-top{display:flex;align-items:center;justify-content:space-between}
+    .header-top{
+      display:flex;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
 
     /* Print-friendly adjustments */
     @media print{
@@ -109,12 +146,20 @@
     <header>
       <div class="avatar">GF</div>
       <div class="header-right">
+        <h1>Guillaume Friloux</h1>
         <div class="header-top">
           <div>
-            <h1>Guillaume Friloux</h1>
             <ul class="meta">
-              <li><span>Email:</span> guillaume@friloux.me</li>
-              <li><span>Site:</span> <a href=https://guillaume.friloux.me>guillaume.friloux.me</a></li>
+              <li><span><i class="nf nf-fa-birthday_cake"></i></span> 43 ans</li>
+              <li><span><i class="nf nf-fa-linux"></i></span> 28 ans</li>
+              <li><span><i class="nf nf-cod-file_pdf"></i></span><a href="https://guillaume.friloux.me/CV – Guillaume Friloux.pdf">resume</a></li>
+            </ul>
+          </div>
+          <div>
+            <ul class="meta">
+              <li><span><i class="nf nf-md-mailbox"></i></span> <a href="mailto:guillaume@friloux.me">guillaume@friloux.me</a></li>
+              <li><span><i class="nf nf-md-web"></i></span> <a href="https://guillaume.friloux.me">guillaume.friloux.me</a></li>
+              <li><span><i class="nf nf-fa-github"></i></span> <a href="https://github.com/gfriloux">/gfriloux</a></li>
             </ul>
           </div>
         </div>
@@ -125,7 +170,7 @@
       <h2>Expérience professionnelle</h2>
       <div class="item">
         <div class="item-title">Administrateur système Linux — Galilée / DATASOLUTION</div>
-        <div class="item-subtitle">Mar 2022 – Dec 2025</div>
+        <div class="item-subtitle">Mar 2022</div>
         <p>Gestion de serveurs et services sur OVH/AWS. Écriture d'envs nix/devbox.</p>
         <ul class="skills-list">
           <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li><li>Systemd Portable Services</li>
