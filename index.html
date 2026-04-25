@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CV – Guillaume Friloux</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
   <style>
     /* Catppuccin - Mocha https://catppuccin.com/palette/ */
@@ -42,7 +42,7 @@
     body{
       margin:0;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 400px at 10% 10%, rgba(139,133,255,0.06), transparent), var(--bg-mantle);
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(139,133,255,0.10), transparent), var(--bg-mantle);
       background-attachment: fixed;
       color:var(--text);
       -webkit-font-smoothing:antialiased;
@@ -68,7 +68,9 @@
     a {
       color: var(--mauve);
       text-decoration:none;
+      transition: color 0.15s ease;
     }
+    a:hover{color:var(--rosewater);text-decoration:underline;}
 
     h1 {
       font-size:2.2rem;margin:0 0 4px 0;color:var(--text);letter-spacing:-0.02em;
@@ -175,7 +177,7 @@
         </ul>
         <ul class="meta">
           <li><span><i class="nf nf-md-map_marker"></i></span> Landes (40) — Télétravail</li>
-          <li>🇫🇷 natif &nbsp;·&nbsp; 🇬🇧 lu / écrit</li>
+          <li><span><i class="nf nf-md-translate"></i></span> FR natif &nbsp;·&nbsp; EN lu / écrit</li>
         </ul>
         <ul class="meta">
           <li><span><i class="nf nf-md-mailbox"></i></span> <a href="mailto:guillaume@friloux.me">guillaume@friloux.me</a></li>
