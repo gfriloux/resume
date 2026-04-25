@@ -61,12 +61,8 @@
       border:1px solid rgba(255,255,255,0.03);
     }
 
-    header{display:flex;gap:24px;align-items:center}
-    .avatar{
-      width:86px;height:86px;border-radius:12px;flex:0 0 86px;
-      background:linear-gradient(135deg,var(--mauve),var(--blue));
-      display:flex;align-items:center;justify-content:center;color:var(--bg-crust);font-weight:700;font-size:28px
-    }
+    header{display:flex;flex-direction:column;gap:8px}
+    .header-cols{display:flex;gap:24px;justify-content:space-between}
 
     a {
       color: var(--mauve);
@@ -80,7 +76,9 @@
       font-size:1rem;font-weight:600;color:var(--accent);margin:0 0 8px 0
     }
     .summary{
-      font-size:0.95rem;color:var(--subtext1);margin:16px 0 4px 0;line-height:1.6
+      font-size:0.95rem;color:var(--subtext1);margin:16px 0 16px 0;line-height:1.6;
+      background:var(--surface0);border-radius:8px;padding:12px 14px;
+      border-left:3px solid var(--accent);
     }
     .meta{
       list-style:none;padding:0;margin:0;color:var(--subtext)
@@ -95,7 +93,7 @@
 
     /* Sections */
     h2 {
-      font-size:1.05rem;margin:26px 0 12px 0;padding-left:10px;border-left:4px solid var(--pink);
+      font-size:1.05rem;margin:26px 0 12px 0;padding-left:10px;border-left:4px solid var(--accent);
       color:var(--text)
     }
     .section{margin-bottom:8px}
@@ -114,15 +112,14 @@
     p{margin:0;color:var(--subtext1)}
 
     .skills-list{list-style:none;padding:0;margin:6px 0 0 0}
-    .skills-list li{display:inline-block;margin:6px 8px 6px 0;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:0.9rem;color:var(--text);border:1px solid rgba(255,255,255,0.02)}
+    .skills-list li{display:inline-block;margin:6px 8px 6px 0;padding:6px 10px;border-radius:999px;background:var(--surface0);font-size:0.9rem;color:var(--text);border:1px solid var(--overlay)}
 
-    /* Two-column meta for header */
-    .header-right{flex:1}
-    .header-top{
-      display:flex;
-      flex-wrap: wrap;
-      align-items:center;
-      justify-content:space-between;
+    .header-right{width:100%}
+    .divider{
+      border:0;
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--surface1), transparent);
+      margin:16px 0;
     }
 
     /* Print-friendly adjustments */
@@ -153,31 +150,30 @@
 <body>
   <div class="container">
     <header>
-      <div class="avatar">GF</div>
       <div class="header-right">
         <h1>Guillaume Friloux</h1>
         <p class="label">Administrateur Système Linux</p>
-        <div class="header-top">
-          <div>
-            <ul class="meta">
-              <li><span><i class="nf nf-fa-birthday_cake"></i></span> 43 ans</li>
-              <li><span><i class="nf nf-fa-linux"></i></span> 28 ans</li>
-              <li><span><i class="nf nf-cod-file_pdf"></i></span><a href="https://guillaume.friloux.me/CV – Guillaume Friloux.pdf">CV</a></li>
-              <li><span><i class="nf nf-md-map_marker"></i></span> Landes (40) — Télétravail</li>
-              <li>🇫🇷 natif &nbsp;·&nbsp; 🇬🇧 lu / écrit</li>
-            </ul>
-          </div>
-          <div>
-            <ul class="meta">
-              <li><span><i class="nf nf-md-mailbox"></i></span> <a href="mailto:guillaume@friloux.me">guillaume@friloux.me</a></li>
-              <li><span><i class="nf nf-md-web"></i></span> <a href="https://guillaume.friloux.me">guillaume.friloux.me</a></li>
-              <li><span><i class="nf nf-fa-github"></i></span> <a href="https://github.com/gfriloux">/gfriloux</a></li>
-              <li><span><i class="nf nf-cod-book"></i></span> <a href="https://legacy.guillaume.friloux.me/">/gfriloux/legacy</a></li>
-            </ul>
-          </div>
-        </div>
+      </div>
+      <div class="header-cols">
+        <ul class="meta">
+          <li><span><i class="nf nf-fa-birthday_cake"></i></span> 43 ans</li>
+          <li><span><i class="nf nf-fa-linux"></i></span> 28 ans</li>
+          <li><span><i class="nf nf-cod-file_pdf"></i></span><a href="https://guillaume.friloux.me/CV – Guillaume Friloux.pdf">CV</a></li>
+        </ul>
+        <ul class="meta">
+          <li><span><i class="nf nf-md-map_marker"></i></span> Landes (40) — Télétravail</li>
+          <li>🇫🇷 natif &nbsp;·&nbsp; 🇬🇧 lu / écrit</li>
+        </ul>
+        <ul class="meta">
+          <li><span><i class="nf nf-md-mailbox"></i></span> <a href="mailto:guillaume@friloux.me">guillaume@friloux.me</a></li>
+          <li><span><i class="nf nf-md-web"></i></span> <a href="https://guillaume.friloux.me">guillaume.friloux.me</a></li>
+          <li><span><i class="nf nf-fa-github"></i></span> <a href="https://github.com/gfriloux">/gfriloux</a></li>
+          <li><span><i class="nf nf-cod-book"></i></span> <a href="https://legacy.guillaume.friloux.me/">/gfriloux/legacy</a></li>
+        </ul>
       </div>
     </header>
+
+    <hr class="divider">
 
     <p class="summary">Administrateur Linux depuis plus de 25 ans, avec une expérience récente sur des infrastructures AWS. À l'aise avec l'automatisation (Ansible, Terraform), les environnements Docker, et la gestion de configurations reproductibles avec Nix. Profil atypique avec un background développeur C/Rust, utile pour diagnostiquer des problèmes bas niveau ou outiller l'équipe.</p>
 
@@ -241,7 +237,9 @@
     <section class="section">
       <h2>Formation</h2>
       <div class="item">
-        <p>IUT des Pays de l'Adour — Réseaux & Télécommunications, Licence (Sep 2005 – Jul 2006)</p>
+        <div class="item-title">IUT des Pays de l'Adour</div>
+        <div class="item-subtitle">Sep 2005 – Jul 2006</div>
+        <p>Licence — Réseaux & Télécommunications</p>
       </div>
     </section>
 
