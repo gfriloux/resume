@@ -98,16 +98,24 @@
     }
     .section{margin-bottom:8px}
 
-    .item{padding:12px 14px;border-radius:8px;margin-bottom:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.02)}
+    .item{padding:12px 14px;border-radius:8px;margin-bottom:12px;background:var(--surface0);border:1px solid rgba(255,255,255,0.04)}
+    .item-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:12px;
+      margin-bottom:8px;
+    }
     .item-title{
       font-weight:600;
       font-size:1.02rem;
       color:var(--text)
     }
     .item-subtitle{
-      font-size:0.92rem;
+      font-size:0.88rem;
       color:var(--subtext);
-      margin-bottom:8px
+      white-space:nowrap;
+      flex-shrink:0;
     }
     p{margin:0;color:var(--subtext1)}
 
@@ -180,8 +188,10 @@
     <section class="section">
       <h2>Expérience professionnelle</h2>
       <div class="item">
-        <div class="item-title">Administrateur système Linux — Galilée / DATASOLUTION</div>
-        <div class="item-subtitle">Mar 2022 – présent</div>
+        <div class="item-header">
+          <div class="item-title">Administrateur système Linux — Galilée / DATASOLUTION</div>
+          <div class="item-subtitle">Mar 2022 – présent</div>
+        </div>
         <p>Gestion d'une infrastructure de plus de 200 serveurs, dont une portion grandissante sur AWS. Écriture d'envs nix/devbox. Construction de projets et images Docker via Nix.</p>
         <ul class="skills-list">
           <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li><li>Gitlab CI/CD</li><li>Services portables</li>
@@ -189,8 +199,10 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Architecte Logiciel — ASP France / AMTrust IT / DSIIG</div>
-        <div class="item-subtitle">Nov 2013 – Dec 2021</div>
+        <div class="item-header">
+          <div class="item-title">Architecte Logiciel — ASP France / AMTrust IT / DSIIG</div>
+          <div class="item-subtitle">Nov 2013 – Dec 2021</div>
+        </div>
         <p>Portage d'applications sous Mac OSX, FreeBSD, GNU/Linux, Windows. Migration de projets C vers Rust pour tirer parti des garanties à la compilation et réduire les risques d'erreurs mémoire sur le long terme. Mise en place de nouvelles infrastructures. Écriture d'API REST pour l'ensemble des projets.</p>
         <ul class="skills-list">
           <li>C</li><li>Rust</li><li>Docker</li><li>Rancher</li><li>API REST</li>
@@ -198,8 +210,10 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Analyste développeur C — ASP64</div>
-        <div class="item-subtitle">Sep 2007 – Nov 2013</div>
+        <div class="item-header">
+          <div class="item-title">Analyste développeur C — ASP64</div>
+          <div class="item-subtitle">Sep 2007 – Nov 2013</div>
+        </div>
         <p>Recherche de performances et sécurité. Développement d'une solution de monitoring via XMPP, déployée sur jusqu'à 1 500 serveurs. Projet d'installation de serveurs en chaîne. Intégration des librairies EFL dans les projets.</p>
         <ul class="skills-list">
           <li>C</li><li>XMPP</li><li>EFL</li><li>MySQL</li>
@@ -207,8 +221,10 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Développeur web — Mairie d'Ustaritz</div>
-        <div class="item-subtitle">Apr 2007 – Jun 2007</div>
+        <div class="item-header">
+          <div class="item-title">Développeur web — Mairie d'Ustaritz</div>
+          <div class="item-subtitle">Apr 2007 – Jun 2007</div>
+        </div>
         <p>Ré-écriture du site internet.</p>
         <ul class="skills-list">
           <li>PHP</li>
@@ -216,8 +232,10 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Administrateur réseau — Base Aérienne 118</div>
-        <div class="item-subtitle">Mar 2006 – Jun 2006</div>
+        <div class="item-header">
+          <div class="item-title">Administrateur réseau — Base Aérienne 118</div>
+          <div class="item-subtitle">Mar 2006 – Jun 2006</div>
+        </div>
         <p>Configuration de routeur sur les réseaux confidentiel et classifié défense. Remplacement de la passerelle internet.</p>
         <ul class="skills-list">
           <li>Cisco</li><li>iptables</li><li>squid</li>
@@ -225,8 +243,10 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Développeur web (Projet scolaire) — 5e régiment d'hélicoptères de combat</div>
-        <div class="item-subtitle">Jan 2005 – Jun 2005</div>
+        <div class="item-header">
+          <div class="item-title">Développeur web (Projet scolaire) — 5e régiment d'hélicoptères de combat</div>
+          <div class="item-subtitle">Jan 2005 – Jun 2005</div>
+        </div>
         <p>Écriture d'un logiciel de gestion de stock informatique.</p>
         <ul class="skills-list">
           <li>PHP</li><li>MySQL</li>
@@ -237,8 +257,10 @@
     <section class="section">
       <h2>Formation</h2>
       <div class="item">
-        <div class="item-title">IUT des Pays de l'Adour</div>
-        <div class="item-subtitle">Sep 2005 – Jul 2006</div>
+        <div class="item-header">
+          <div class="item-title">IUT des Pays de l'Adour</div>
+          <div class="item-subtitle">Sep 2005 – Jul 2006</div>
+        </div>
         <p>Licence — Réseaux & Télécommunications</p>
       </div>
     </section>
