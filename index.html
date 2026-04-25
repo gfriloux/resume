@@ -126,11 +126,13 @@
     }
 
     /* Print-friendly adjustments */
+    @page{margin:1cm}
     @media print{
-      body{border:0;background:#fff;color:#111}
-      .container{box-shadow:none;border:0;background:#fff}
+      body{border:0;background:#fff;color:#111;padding:0}
+      .container{box-shadow:none;border:0;background:#fff;padding:8px;margin:0}
       .avatar{background:#ddd;color:#222}
-      h2{border-left-color:#444}
+      .summary{display:none}
+      h2{border-left-color:#444;margin:6px 0 4px 0}
       .item{border:0;background:transparent; padding:0 0; border-radius:0px;margin-bottom:10px; margin: auto;}
       .item-title{font-size:0.80rem; float: left;}
       .item-subtitle{font-size:0.6rem; float: right;}
