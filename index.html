@@ -74,7 +74,13 @@
     }
 
     h1 {
-      font-size:1.9rem;margin:0 0 6px 0;color:var(--text)
+      font-size:1.9rem;margin:0 0 4px 0;color:var(--text)
+    }
+    .label{
+      font-size:1rem;font-weight:600;color:var(--accent);margin:0 0 8px 0
+    }
+    .summary{
+      font-size:0.95rem;color:var(--subtext1);margin:16px 0 4px 0;line-height:1.6
     }
     .meta{
       list-style:none;padding:0;margin:0;color:var(--subtext)
@@ -148,13 +154,15 @@
       <div class="avatar">GF</div>
       <div class="header-right">
         <h1>Guillaume Friloux</h1>
+        <p class="label">Administrateur Système Linux</p>
         <div class="header-top">
           <div>
             <ul class="meta">
               <li><span><i class="nf nf-fa-birthday_cake"></i></span> 43 ans</li>
               <li><span><i class="nf nf-fa-linux"></i></span> 28 ans</li>
-              <li><span><i class="nf nf-cod-file_pdf"></i></span><a href="https://guillaume.friloux.me/CV – Guillaume Friloux.pdf">resume</a></li>
-              <li><span></span></li>
+              <li><span><i class="nf nf-cod-file_pdf"></i></span><a href="https://guillaume.friloux.me/CV – Guillaume Friloux.pdf">CV</a></li>
+              <li><span><i class="nf nf-md-map_marker"></i></span> Landes (40) — Télétravail</li>
+              <li>🇫🇷 natif &nbsp;·&nbsp; 🇬🇧 lu / écrit</li>
             </ul>
           </div>
           <div>
@@ -169,30 +177,32 @@
       </div>
     </header>
 
+    <p class="summary">Administrateur Linux depuis plus de 25 ans, avec une expérience récente sur des infrastructures AWS. À l'aise avec l'automatisation (Ansible, Terraform), les environnements Docker, et la gestion de configurations reproductibles avec Nix. Profil atypique avec un background développeur C/Rust, utile pour diagnostiquer des problèmes bas niveau ou outiller l'équipe.</p>
+
     <section class="section">
       <h2>Expérience professionnelle</h2>
       <div class="item">
         <div class="item-title">Administrateur système Linux — Galilée / DATASOLUTION</div>
-        <div class="item-subtitle">Mar 2022</div>
-        <p>Gestion de serveurs et services sur OVH/AWS. Écriture d'envs nix/devbox. Construction projets et images Docker via nix</p>
+        <div class="item-subtitle">Mar 2022 – présent</div>
+        <p>Gestion d'une infrastructure de plus de 200 serveurs, dont une portion grandissante sur AWS. Écriture d'envs nix/devbox. Construction de projets et images Docker via Nix.</p>
         <ul class="skills-list">
-          <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li><li>Gitlab CI/CD</li><li>Portable services</li>
+          <li>Ansible</li><li>Terraform</li><li>Devbox</li><li>AWS</li><li>Nix flakes</li><li>Gitlab CI/CD</li><li>Services portables</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-title">Architecte Logiciel — ASP France / AMTrust IT / DSIIG</div>
         <div class="item-subtitle">Nov 2013 – Dec 2021</div>
-        <p>Portage d'applications sous Mac OSX, FreeBSD, GNU/Linux, Windows. Portage de projets C vers Rust. Mise en place de nouvelles infrastructures. Écriture d'API Rest pour l'ensemble des projets</p>
+        <p>Portage d'applications sous Mac OSX, FreeBSD, GNU/Linux, Windows. Migration de projets C vers Rust pour tirer parti des garanties à la compilation et réduire les risques d'erreurs mémoire sur le long terme. Mise en place de nouvelles infrastructures. Écriture d'API REST pour l'ensemble des projets.</p>
         <ul class="skills-list">
-          <li>C</li><li>Rust</li><li>Docker</li><li>Rancher</li><li>REST API</li>
+          <li>C</li><li>Rust</li><li>Docker</li><li>Rancher</li><li>API REST</li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-title">Analyste développeur C — ASP64</div>
         <div class="item-subtitle">Sep 2007 – Nov 2013</div>
-        <p>Recherche performances et sécurité. Solution de monitoring via XMPP. Projet d'installation de serveurs en chaine. Intégration des librairies EFL dans les projets.</p>
+        <p>Recherche de performances et sécurité. Développement d'une solution de monitoring via XMPP, déployée sur jusqu'à 1 500 serveurs. Projet d'installation de serveurs en chaîne. Intégration des librairies EFL dans les projets.</p>
         <ul class="skills-list">
           <li>C</li><li>XMPP</li><li>EFL</li><li>MySQL</li>
         </ul>
@@ -217,7 +227,7 @@
       </div>
 
       <div class="item">
-        <div class="item-title">Web developer (School project) — 5th attack helicopter</div>
+        <div class="item-title">Développeur web (Projet scolaire) — 5e régiment d'hélicoptères de combat</div>
         <div class="item-subtitle">Jan 2005 – Jun 2005</div>
         <p>Écriture d'un logiciel de gestion de stock informatique.</p>
         <ul class="skills-list">
@@ -229,7 +239,7 @@
     <section class="section">
       <h2>Formation</h2>
       <div class="item">
-        <p>IUT des Pays de l'Adour — Networks & Telecommunications, Bachelors (Sep 2005 – Jul 2006)</p>
+        <p>IUT des Pays de l'Adour — Réseaux & Télécommunications, Licence (Sep 2005 – Jul 2006)</p>
       </div>
     </section>
 
