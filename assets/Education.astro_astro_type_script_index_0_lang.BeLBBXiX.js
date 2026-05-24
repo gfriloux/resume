@@ -1,0 +1,1 @@
+import{g as r}from"./index.xgxdCp6f.js";import{S as o}from"./ScrollTrigger.ak1EnQU5.js";r.registerPlugin(o);r.from(".edu-card",{scrollTrigger:{trigger:"#education",start:"top 85%"},y:24,opacity:0,stagger:.1,duration:.6,ease:"power3.out"});

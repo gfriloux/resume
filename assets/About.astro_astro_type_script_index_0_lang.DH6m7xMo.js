@@ -1,0 +1,1 @@
+import{g as r}from"./index.xgxdCp6f.js";import{S as o}from"./ScrollTrigger.ak1EnQU5.js";r.registerPlugin(o);r.from(".about-summary, .about-langs",{scrollTrigger:{trigger:"#about",start:"top 80%"},y:30,opacity:0,stagger:.15,duration:.7,ease:"power3.out"});
