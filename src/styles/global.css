@@ -38,3 +38,177 @@ a { color: var(--mauve); text-decoration: none; }
   background: linear-gradient(90deg, var(--blue), var(--mauve), var(--green));
   z-index: 1000; transition: width 80ms linear;
 }
+
+/* ============================================================
+   PRINT — CV PDF
+   ============================================================ */
+@media print {
+  @page { size: A4; margin: 1.5cm; }
+
+  /* Light palette */
+  :root {
+    --bg:    #ffffff;
+    --mantle:#f5f5f5;
+    --crust: #eeeeee;
+    --s0:    #e8e8f0;
+    --s1:    #d0d0e0;
+    --text:  #1a1a2e;
+    --sub0:  #5a5a7a;
+    --sub1:  #3a3a5a;
+    --mauve: #6d28d9;
+    --red:   #b91c1c;
+    --green: #15803d;
+    --blue:  #1d4ed8;
+    --teal:  #0f766e;
+  }
+
+  /* Kill all animations — GSAP elements would stay opacity:0 otherwise */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Base */
+  html { font-size: 11pt; }
+  body { background: #fff; color: var(--text); overflow: visible; }
+  a    { color: var(--mauve); text-decoration: none; }
+
+  /* Hide decorative / interactive elements */
+  canvas,
+  #progress,
+  #topnav,
+  .scroll-hint,
+  .cursor,
+  .eyebrow,
+  .terminal-window,
+  .xac-glow,
+  .timeline-progress,
+  .footer-title { display: none !important; }
+
+  /* Layout */
+  main { max-width: 100%; padding: 0; }
+  section { padding: 18pt 0 0; }
+
+  /* ---- Hero ---- */
+  #hero {
+    min-height: auto;
+    padding: 0 0 16pt;
+    border-bottom: 2pt solid var(--mauve);
+    margin-bottom: 14pt;
+  }
+  .hero-name {
+    font-size: 26pt;
+    color: var(--text);
+    margin-bottom: 6pt;
+  }
+  .typewriter-wrap { margin-bottom: 10pt; }
+  .hero-prompt     { display: none; }
+  .typewriter      { font-family: var(--font); font-size: 13pt; color: var(--mauve); font-weight: 600; }
+  .badges          { gap: 6pt; margin-bottom: 10pt; }
+  .badge {
+    font-size: 8pt;
+    padding: 2pt 8pt;
+    border: 1pt solid #ccc;
+    background: #f0ebff;
+    color: var(--mauve);
+    font-family: var(--font);
+  }
+  .contact-bar { gap: 16pt; }
+  .contact-bar a { font-size: 8.5pt; color: var(--sub0); }
+  .contact-bar i  { color: #999; }
+
+  /* ---- Section titles ---- */
+  .section-title {
+    color: var(--sub0);
+    margin-bottom: 12pt;
+    border-bottom: 1pt solid #e0e0e8;
+    padding-bottom: 4pt;
+  }
+  .section-title::before { background: var(--mauve); box-shadow: none; }
+  .section-title::after  { background: #e0e0e8; }
+
+  /* ---- XaC ---- */
+  #xac { overflow: visible; }
+  #xac::after { display: none !important; }
+  .xac-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8pt;
+  }
+  .xac-card {
+    background: #f7f4ff;
+    border: 1pt solid #d4c6f7;
+    border-radius: 6pt;
+    padding: 10pt;
+    break-inside: avoid;
+  }
+  .card-icon  { font-size: 14pt; margin-bottom: 5pt; }
+  .card-name  { font-size: 9pt; color: var(--text); }
+  .card-desc  { font-size: 7.5pt; color: var(--sub0); }
+  .card-tag   { font-size: 6.5pt; background: #ede9fe; color: var(--mauve); border: none; }
+
+  /* ---- Timeline ---- */
+  .timeline      { padding-left: 18pt; }
+  .timeline-track { background: #e0e0e8; width: 1.5pt; }
+  .timeline-item { margin-bottom: 12pt; break-inside: avoid; }
+  .tl-dot {
+    left: -24pt; top: 4pt;
+    width: 8pt; height: 8pt;
+    background: var(--mauve);
+    border: 1.5pt solid #fff;
+  }
+  .tl-card {
+    background: transparent;
+    border: 1pt solid #e0e0e8;
+    border-radius: 4pt;
+    padding: 8pt 10pt;
+  }
+  .tl-role    { font-size: 10pt; color: var(--text); }
+  .tl-company { font-size: 8.5pt; }
+  .tl-company a { color: var(--mauve); }
+  .tl-dates {
+    background: #f0ebff;
+    color: var(--mauve);
+    font-size: 7.5pt;
+    padding: 2pt 6pt;
+  }
+  .tl-desc  { font-size: 8.5pt; color: var(--sub1); margin: 5pt 0; }
+  .tl-tags  { gap: 4pt; }
+  .tl-tag   { font-size: 7pt; background: #f5f5f5; border: 1pt solid #ddd; color: var(--sub0); padding: 1pt 5pt; }
+
+  /* ---- Skills ---- */
+  .skill-groups { gap: 12pt; }
+  .group-label  { font-size: 7.5pt; margin-bottom: 5pt; }
+  .group-badges { gap: 5pt; }
+  .skill-badge {
+    font-size: 8pt;
+    padding: 2pt 8pt;
+    background: #f5f5f5;
+    border: 1pt solid #ddd;
+    color: var(--text);
+    border-radius: 999pt;
+  }
+
+  /* ---- Education ---- */
+  .edu-card {
+    background: transparent;
+    border: 1pt solid #e0e0e8;
+    padding: 8pt 10pt;
+    border-radius: 4pt;
+    break-inside: avoid;
+  }
+
+  /* ---- Footer ---- */
+  footer { border-top: 1pt solid #e0e0e8; padding-top: 10pt; margin-top: 14pt; }
+  .footer-links { gap: 14pt; }
+  .footer-link  { font-size: 8pt; color: var(--sub0); }
+  .footer-copy  { font-size: 7pt; color: #aaa; }
+
+  /* Page breaks */
+  #experience, #skills, #education { break-before: auto; }
+  .timeline-item, .xac-card, .edu-card { break-inside: avoid; }
+}
