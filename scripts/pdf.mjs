@@ -1,17 +1,45 @@
 import puppeteer from 'puppeteer-core';
-import { readFileSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { createServer } from 'http';
+import { readFileSync, existsSync } from 'fs';
+import { resolve, dirname, extname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = resolve(__dirname, '..');
+const root     = resolve(__dirname, '..');
+const distDir  = resolve(root, 'dist');
 
-const chromePath =
-  process.env.CHROME_PATH ||
-  '/usr/bin/google-chrome';
+// Minimal static server so absolute asset paths (/_astro/...) resolve correctly
+const MIMES = {
+  '.html': 'text/html; charset=utf-8',
+  '.css':  'text/css',
+  '.js':   'application/javascript',
+  '.json': 'application/json',
+  '.svg':  'image/svg+xml',
+  '.png':  'image/png',
+  '.jpg':  'image/jpeg',
+  '.woff2':'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf':  'font/ttf',
+  '.pdf':  'application/pdf',
+};
+
+const server = createServer((req, res) => {
+  const url      = req.url.split('?')[0];
+  const filePath = resolve(distDir, url === '/' ? 'index.html' : `.${url}`);
+
+  if (!existsSync(filePath)) {
+    res.writeHead(404); res.end(); return;
+  }
+  res.writeHead(200, { 'Content-Type': MIMES[extname(filePath)] ?? 'text/plain' });
+  res.end(readFileSync(filePath));
+});
+
+const PORT = 4322;
+await new Promise(r => server.listen(PORT, '127.0.0.1', r));
+console.log(`Serving dist/ on http://localhost:${PORT}`);
 
 const browser = await puppeteer.launch({
-  executablePath: chromePath,
+  executablePath: process.env.CHROME_PATH ?? '/usr/bin/google-chrome',
   args: ['--no-sandbox', '--disable-setuid-sandbox'],
   headless: true,
 });
@@ -19,13 +47,11 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 await page.setViewport({ width: 1280, height: 900 });
 
-// Emulate print media BEFORE loading so @media print CSS applies from the start
+// Set print media BEFORE loading so GSAP and animations see it immediately
 await page.emulateMediaType('print');
+await page.goto(`http://localhost:${PORT}`, { waitUntil: 'networkidle0', timeout: 30_000 });
 
-const indexPath = `file://${resolve(root, 'dist/index.html')}`;
-await page.goto(indexPath, { waitUntil: 'networkidle0', timeout: 30_000 });
-
-// Wait for web fonts (Google Fonts, Nerd Fonts) to finish loading
+// Wait for web fonts (Google Fonts, Nerd Fonts CDN)
 await page.evaluateHandle('document.fonts.ready');
 
 const outPath = resolve(root, 'dist/CV – Guillaume Friloux.pdf');
@@ -38,4 +64,5 @@ await page.pdf({
 });
 
 await browser.close();
+server.close();
 console.log('PDF généré :', outPath);
