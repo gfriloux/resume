@@ -84,32 +84,35 @@ a { color: var(--mauve); text-decoration: none; }
   #topnav,
   .scroll-hint,
   .cursor,
+  .hero-prompt,
   .eyebrow,
   .terminal-window,
   .xac-glow,
   .timeline-progress,
   .footer-title { display: none !important; }
 
-  /* Layout */
+  /* Layout — strip all web spacing */
   main { max-width: 100%; padding: 0; }
-  section { padding: 18pt 0 0; }
+  section { padding: 14pt 0 0; }
 
-  /* ---- Hero ---- */
+  /* ---- Hero — compact, no full-viewport height ---- */
   #hero {
-    min-height: auto;
-    padding: 0 0 16pt;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 0 14pt;
     border-bottom: 2pt solid var(--mauve);
     margin-bottom: 14pt;
+    display: block !important;
+    justify-content: unset !important;
   }
   .hero-name {
     font-size: 26pt;
     color: var(--text);
-    margin-bottom: 6pt;
+    margin-bottom: 4pt;
   }
-  .typewriter-wrap { margin-bottom: 10pt; }
-  .hero-prompt     { display: none; }
+  .typewriter-wrap { margin-bottom: 8pt; }
   .typewriter      { font-family: var(--font); font-size: 13pt; color: var(--mauve); font-weight: 600; }
-  .badges          { gap: 6pt; margin-bottom: 10pt; }
+  .badges          { gap: 5pt; margin-bottom: 8pt; }
   .badge {
     font-size: 8pt;
     padding: 2pt 8pt;
@@ -118,7 +121,7 @@ a { color: var(--mauve); text-decoration: none; }
     color: var(--mauve);
     font-family: var(--font);
   }
-  .contact-bar { gap: 16pt; }
+  .contact-bar { gap: 14pt; }
   .contact-bar a { font-size: 8.5pt; color: var(--sub0); }
   .contact-bar i  { color: #999; }
 
