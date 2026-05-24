@@ -28,6 +28,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Generate PDF
+        run: node scripts/pdf.mjs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
