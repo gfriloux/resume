@@ -1,0 +1,118 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.experience; }
+const { data } = Astro.props;
+---
+
+<section id="experience">
+  <div class="exp-inner">
+    <p class="section-title">Expérience Professionnelle</p>
+    <div class="timeline" id="timeline">
+      <div class="timeline-track"><div class="timeline-progress" id="tl-progress"></div></div>
+      {data.map((job, i) => (
+        <article class="timeline-item" data-index={i}>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">{job.role}</div>
+                <div class="tl-company">
+                  {job.url
+                    ? <a href={job.url} target="_blank" rel="noopener">{job.company}</a>
+                    : <span>{job.company}</span>
+                  }
+                </div>
+              </div>
+              <span class="tl-dates">{job.start} — {job.end}</span>
+            </div>
+            <p class="tl-desc">{job.desc}</p>
+            <div class="tl-tags">
+              {job.tags.map(t => <span class="tl-tag">{t}</span>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Timeline line draws on scroll
+  gsap.to('#tl-progress', {
+    scaleY: 1,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#timeline',
+      start: 'top 70%',
+      end: 'bottom 80%',
+      scrub: true
+    }
+  });
+
+  // Cards reveal
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    gsap.from(item, {
+      scrollTrigger: { trigger: item, start: 'top 85%' },
+      x: -40, opacity: 0, duration: .7,
+      ease: 'power3.out',
+      delay: i * 0.05
+    });
+  });
+</script>
+
+<style>
+  #experience { padding: 80px 0; }
+  .exp-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  .section-title {
+    font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sub0); display: flex; align-items: center; gap: 14px; margin-bottom: 40px;
+  }
+  .section-title::before { content: ''; display: block; width: 3px; height: 1.1em; background: var(--mauve); border-radius: 2px; box-shadow: 0 0 8px rgba(203,166,247,.5); }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
+
+  .timeline { position: relative; padding-left: 48px; }
+  .timeline-track {
+    position: absolute; left: 11px; top: 8px; bottom: 0; width: 2px;
+    background: rgba(203,166,247,.1);
+  }
+  .timeline-progress {
+    width: 100%; height: 100%; background: linear-gradient(to bottom, var(--mauve), rgba(203,166,247,.2));
+    transform-origin: top; transform: scaleY(0);
+  }
+
+  .timeline-item { position: relative; margin-bottom: 40px; }
+  .tl-dot {
+    position: absolute; left: -41px; top: 20px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--mauve); border: 2px solid var(--bg);
+    box-shadow: 0 0 0 0 rgba(203,166,247,.4);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%   { box-shadow: 0 0 0 0 rgba(203,166,247,.4); }
+    70%  { box-shadow: 0 0 0 8px rgba(203,166,247,0); }
+    100% { box-shadow: 0 0 0 0 rgba(203,166,247,0); }
+  }
+
+  .tl-card {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
+    border-radius: 12px; padding: 20px 24px;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .tl-card:hover { border-color: rgba(203,166,247,.25); transform: translateX(4px); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+
+  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .tl-role { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .tl-company { font-size: .88rem; color: var(--sub0); }
+  .tl-company a { color: var(--mauve); transition: color .15s; }
+  .tl-company a:hover { color: var(--rosewater); }
+  .tl-dates { font-family: var(--mono); font-size: .72rem; color: var(--sub0); background: rgba(203,166,247,.08); padding: 4px 10px; border-radius: 4px; white-space: nowrap; }
+  .tl-desc { font-size: .88rem; color: var(--sub1); line-height: 1.65; margin-bottom: 12px; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tl-tag { font-family: var(--mono); font-size: .7rem; padding: 3px 8px; background: rgba(255,255,255,.04); border-radius: 4px; color: var(--sub0); border: 1px solid rgba(255,255,255,.06); }
+</style>

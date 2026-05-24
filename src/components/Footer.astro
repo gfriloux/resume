@@ -1,0 +1,77 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.basics; }
+const { data } = Astro.props;
+---
+
+<footer id="contact">
+  <div class="footer-inner">
+    <p class="section-title">Contact</p>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href={`mailto:${data.email}`} class="footer-link">
+          <i class="nf nf-md-email"></i>
+          <span>{data.email}</span>
+        </a>
+        <a href={data.website} target="_blank" rel="noopener" class="footer-link">
+          <i class="nf nf-md-web"></i>
+          <span>{data.website.replace('https://','')}</span>
+        </a>
+        <a href={data.github} target="_blank" rel="noopener" class="footer-link">
+          <i class="nf nf-fa-github"></i>
+          <span>github.com/gfriloux</span>
+        </a>
+        <a href={data.pdf} target="_blank" rel="noopener" class="footer-link footer-link--cta">
+          <i class="nf nf-cod-file_pdf"></i>
+          <span>Télécharger le CV PDF</span>
+        </a>
+      </div>
+      <p class="footer-copy">
+        Guillaume Friloux &mdash; {new Date().getFullYear()}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer { padding: 80px 0 48px; border-top: 1px solid rgba(255,255,255,.04); }
+  .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  .section-title {
+    font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sub0); display: flex; align-items: center; gap: 14px; margin-bottom: 40px;
+  }
+  .section-title::before { content: ''; display: block; width: 3px; height: 1.1em; background: var(--mauve); border-radius: 2px; box-shadow: 0 0 8px rgba(203,166,247,.5); }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
+
+  .footer-content { display: flex; flex-direction: column; gap: 32px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+
+  .footer-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 20px; border-radius: 10px;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.06);
+    color: var(--sub1); font-size: .88rem;
+    transition: all .2s var(--ease-spring);
+  }
+  .footer-link i { font-size: 1.1rem; color: var(--mauve); }
+  .footer-link:hover {
+    color: var(--text); border-color: rgba(203,166,247,.3);
+    background: rgba(203,166,247,.07);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  }
+
+  .footer-link--cta {
+    background: rgba(203,166,247,.1); border-color: rgba(203,166,247,.25); color: var(--mauve);
+  }
+  .footer-link--cta i { color: var(--mauve); }
+  .footer-link--cta:hover {
+    background: rgba(203,166,247,.18); border-color: rgba(203,166,247,.5); color: var(--text);
+    box-shadow: 0 0 24px rgba(203,166,247,.2), 0 4px 16px rgba(0,0,0,.3);
+  }
+
+  .footer-copy {
+    font-family: var(--mono); font-size: .72rem; color: var(--s1); text-align: center;
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.basics; }
+const { data } = Astro.props;
+const badges = ['28 ans Linux', 'Terraform', 'NixOS', 'AWS', 'C / Rust'];
+---
+
+<section id="hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="line"></span> ~/sysadmin --senior</p>
+    <h1 class="hero-name">{data.name}</h1>
+    <div class="typewriter-wrap">
+      <span class="prompt">❯</span>
+      <span class="typewriter" data-text={data.title}></span>
+      <span class="cursor">█</span>
+    </div>
+    <div class="badges">
+      {badges.map(b => <span class="badge">{b}</span>)}
+    </div>
+    <div class="contact-bar">
+      <a href={`mailto:${data.email}`}><i class="nf nf-md-email"></i> {data.email}</a>
+      <a href={data.website} target="_blank"><i class="nf nf-md-web"></i> {data.website.replace('https://','')}</a>
+      <a href={data.github} target="_blank"><i class="nf nf-fa-github"></i> gfriloux</a>
+      <a href={data.pdf} target="_blank"><i class="nf nf-cod-file_pdf"></i> CV PDF</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="mouse"><div class="wheel"></div></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out' }});
+
+  tl.from('.eyebrow',    { y: 20, opacity: 0, duration: .7, delay: .2 })
+    .from('.hero-name',  { y: 40, opacity: 0, duration: .8, filter:'blur(12px)' }, '-=.4')
+    .from('.typewriter-wrap', { y: 20, opacity: 0, duration: .6 }, '-=.4')
+    .from('.badge',      { y: 20, opacity: 0, stagger: .08, duration: .5, ease: 'back.out(1.7)' }, '-=.2')
+    .from('.contact-bar a', { y: 10, opacity: 0, stagger: .06, duration: .4 }, '-=.3')
+    .from('.scroll-hint', { opacity: 0, duration: .5 }, '-=.2');
+
+  // Typewriter effect
+  const el = document.querySelector('.typewriter') as HTMLElement;
+  const cursor = document.querySelector('.cursor') as HTMLElement;
+  if (el && cursor) {
+    const text = el.dataset.text ?? '';
+    let i = 0;
+    const type = () => {
+      if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 55); }
+      else gsap.to(cursor, { opacity: 0, repeat: -1, yoyo: true, duration: .5, ease: 'steps(1)' });
+    };
+    setTimeout(type, 1200);
+  }
+</script>
+
+<style>
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 120px 48px 80px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: .85rem; color: var(--mauve);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    letter-spacing: .06em;
+  }
+  .line { display: block; width: 28px; height: 1px; background: var(--mauve); box-shadow: 0 0 8px rgba(203,166,247,.7); }
+  .hero-name {
+    font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800;
+    letter-spacing: -.04em; line-height: 1; color: var(--text);
+    margin-bottom: 16px;
+  }
+  .typewriter-wrap {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: clamp(1rem, 2.5vw, 1.4rem);
+    margin-bottom: 40px;
+  }
+  .prompt { color: var(--green); }
+  .typewriter { color: var(--mauve); font-weight: 500; min-height: 1em; }
+  .cursor { color: var(--mauve); animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
+  .badge {
+    font-family: var(--mono); font-size: .78rem; font-weight: 500;
+    padding: 6px 14px; border: 1px solid rgba(203,166,247,.3);
+    border-radius: 999px; background: rgba(203,166,247,.08); color: var(--mauve);
+    transition: all .2s var(--ease-spring);
+  }
+  .badge:hover { background: rgba(203,166,247,.18); transform: translateY(-2px) scale(1.05); box-shadow: 0 0 16px rgba(203,166,247,.2); }
+
+  .contact-bar { display: flex; flex-wrap: wrap; gap: 24px; }
+  .contact-bar a { display: flex; align-items: center; gap: 6px; color: var(--sub0); font-size: .88rem; transition: color .2s; }
+  .contact-bar a:hover { color: var(--mauve); }
+  .contact-bar i { font-size: 1rem; }
+
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--sub0); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .mouse { width: 22px; height: 34px; border: 1.5px solid var(--s1); border-radius: 12px; display: flex; justify-content: center; padding-top: 6px; }
+  .wheel { width: 3px; height: 6px; background: var(--mauve); border-radius: 2px; animation: scroll-wheel 1.5s ease-in-out infinite; }
+  @keyframes scroll-wheel { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:0} }
+</style>
