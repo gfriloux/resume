@@ -1,0 +1,122 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.basics; }
+const { data } = Astro.props;
+---
+
+<section id="about">
+  <div class="about-inner">
+    <p class="section-title">Profil</p>
+    <div class="about-grid">
+      <div class="about-summary">
+        <p class="summary-text">{data.summary}</p>
+        <div class="about-meta">
+          <div class="meta-item">
+            <i class="nf nf-md-map_marker"></i>
+            <span>{data.location}</span>
+          </div>
+          {data.remote && (
+            <div class="meta-item meta-remote">
+              <i class="nf nf-md-home_account"></i>
+              <span>Télétravail</span>
+            </div>
+          )}
+          <div class="meta-item">
+            <i class="nf nf-md-account_clock"></i>
+            <span>{data.yearsExp} ans d'expérience</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-langs">
+        <h3 class="langs-title">Langues</h3>
+        {data.languages.map(l => (
+          <div class="lang-row">
+            <span class="lang-name">{l.lang}</span>
+            <span class="lang-level">{l.level}</span>
+          </div>
+        ))}
+        <div class="about-links">
+          <a href={data.legacy} target="_blank" rel="noopener">
+            <i class="nf nf-md-history"></i> Site legacy
+          </a>
+          <a href={data.github} target="_blank" rel="noopener">
+            <i class="nf nf-fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.about-summary, .about-langs', {
+    scrollTrigger: { trigger: '#about', start: 'top 80%' },
+    y: 30, opacity: 0, stagger: .15, duration: .7, ease: 'power3.out'
+  });
+</script>
+
+<style>
+  #about { padding: 80px 0; }
+  .about-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  .section-title {
+    font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sub0); display: flex; align-items: center; gap: 14px; margin-bottom: 40px;
+  }
+  .section-title::before { content: ''; display: block; width: 3px; height: 1.1em; background: var(--mauve); border-radius: 2px; box-shadow: 0 0 8px rgba(203,166,247,.5); }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 280px; gap: 32px;
+  }
+
+  .about-summary {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
+    border-radius: 12px; padding: 32px;
+  }
+  .summary-text {
+    font-size: .95rem; line-height: 1.75; color: var(--sub1); margin-bottom: 24px;
+  }
+  .about-meta { display: flex; flex-wrap: wrap; gap: 16px; }
+  .meta-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: .82rem; color: var(--sub0);
+  }
+  .meta-item i { color: var(--mauve); font-size: 1rem; }
+  .meta-remote { color: var(--green); }
+  .meta-remote i { color: var(--green); }
+
+  .about-langs {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
+    border-radius: 12px; padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .langs-title {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--sub0); margin-bottom: 4px;
+  }
+  .lang-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; background: rgba(255,255,255,.03); border-radius: 6px;
+  }
+  .lang-name { font-weight: 600; font-size: .88rem; color: var(--text); }
+  .lang-level { font-family: var(--mono); font-size: .72rem; color: var(--mauve); background: rgba(203,166,247,.1); padding: 2px 8px; border-radius: 4px; }
+
+  .about-links {
+    margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .about-links a {
+    display: flex; align-items: center; gap: 8px;
+    font-size: .82rem; color: var(--sub0); transition: color .2s;
+    padding: 6px 8px; border-radius: 6px; transition: color .2s, background .2s;
+  }
+  .about-links a:hover { color: var(--mauve); background: rgba(203,166,247,.07); }
+  .about-links i { font-size: .9rem; }
+
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+</style>

@@ -14,15 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
-      - name: Create gh-pages
-        run:  |
-          mkdir gh-pages
-          cp index.html "CV – Guillaume Friloux.pdf" gh-pages/
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
 
-      - name: Deploy 🚀
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate PDF
+        run: node scripts/pdf.mjs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: gh-pages
+          folder: dist

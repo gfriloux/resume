@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ParticleNetwork from '../components/ParticleNetwork.astro';
+import Hero from '../components/Hero.astro';
+import XaC from '../components/XaC.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Skills from '../components/Skills.astro';
+import Education from '../components/Education.astro';
+import Footer from '../components/Footer.astro';
+import { resume } from '../data/resume';
+---
+
+<Layout>
+  <ParticleNetwork />
+  <Hero data={resume.basics} />
+  <XaC data={resume.xac} />
+  <About data={resume.basics} />
+  <Experience data={resume.experience} />
+  <Skills data={resume.skills} />
+  <Education data={resume.education} />
+  <Footer data={resume.basics} />
+</Layout>

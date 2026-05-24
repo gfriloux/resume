@@ -1,0 +1,159 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.xac; }
+const { data } = Astro.props;
+---
+
+<section id="xac">
+  <div class="xac-inner">
+    <p class="section-title">Infrastructure as Code</p>
+
+    <div class="terminal-window" id="xac-terminal">
+      <div class="terminal-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="terminal-title">~/infrastructure — terraform &amp; nix</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <!-- Contenu tapé progressivement via JS -->
+      </div>
+    </div>
+
+    <div class="xac-cards">
+      {data.map(item => (
+        <div class="xac-card" style={`--accent: ${item.accent}`}>
+          <span class="card-icon"><i class={`nf ${item.icon}`}></i></span>
+          <h3 class="card-name">{item.tool}</h3>
+          <p class="card-desc">{item.desc}</p>
+          <span class="card-tag">{item.tag}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Terminal typing on scroll
+  const terminalLines = [
+    { type: 'cmd',     text: '❯ terraform plan' },
+    { type: 'comment', text: "  # génération du plan d'exécution" },
+    { type: 'output',  text: '  + aws_instance.app_server[0]' },
+    { type: 'output',  text: '  + aws_instance.app_server[1]' },
+    { type: 'output',  text: '  + aws_security_group.allow_tls' },
+    { type: 'number',  text: '  Plan: 47 to add, 1 to change, 0 to destroy.' },
+    { type: 'blank',   text: '' },
+    { type: 'cmd',     text: '❯ terraform apply --auto-approve' },
+    { type: 'success', text: '  Apply complete! Resources: 47 added.' },
+    { type: 'blank',   text: '' },
+    { type: 'cmd',     text: '❯ ansible-playbook -i inventory/production deploy.yml' },
+    { type: 'success', text: '  PLAY RECAP ── ok=42  changed=8  failed=0' },
+    { type: 'blank',   text: '' },
+    { type: 'comment', text: '# nixos/configuration.nix' },
+    { type: 'attr',    text: 'services.nginx.enable = true;' },
+    { type: 'attr',    text: 'services.nginx.virtualHosts."api.example.com" = {' },
+    { type: 'attr',    text: '  forceSSL = true; enableACME = true;' },
+    { type: 'attr',    text: '};' },
+    { type: 'blank',   text: '' },
+    { type: 'cmd',     text: '❯ nixos-rebuild switch --flake .#production' },
+    { type: 'success', text: '  activating the configuration... [done]' },
+  ];
+
+  const colorMap: Record<string,string> = {
+    cmd: '#a6e3a1', comment: '#6c7086', output: '#bac2de',
+    number: '#f9e2af', success: '#a6e3a1', blank: 'transparent',
+    attr: '#cba6f7'
+  };
+
+  const body = document.getElementById('terminal-body');
+  let revealed = false;
+
+  if (body) {
+    ScrollTrigger.create({
+      trigger: '#xac-terminal',
+      start: 'top 70%',
+      onEnter: () => {
+        if (revealed) return;
+        revealed = true;
+        let lineIdx = 0;
+        const showLine = () => {
+          if (lineIdx >= terminalLines.length) return;
+          const { type, text } = terminalLines[lineIdx++];
+          const span = document.createElement('div');
+          span.textContent = text;
+          span.style.color = colorMap[type] ?? '#bac2de';
+          span.style.fontFamily = 'var(--mono)';
+          span.style.fontSize = '.82rem';
+          span.style.lineHeight = '1.7';
+          body.appendChild(span);
+          body.scrollTop = body.scrollHeight;
+          setTimeout(showLine, text.length ? 60 : 20);
+        };
+        showLine();
+      }
+    });
+  }
+
+  // Cards scroll reveal with stagger
+  gsap.from('.xac-card', {
+    scrollTrigger: { trigger: '.xac-cards', start: 'top 80%' },
+    y: 40, opacity: 0, stagger: .1, duration: .7, ease: 'power3.out'
+  });
+</script>
+
+<style>
+  #xac { padding: 80px 0; }
+  .xac-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+  .section-title {
+    font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sub0); display: flex; align-items: center; gap: 14px; margin-bottom: 40px;
+  }
+  .section-title::before { content: ''; display: block; width: 3px; height: 1.1em; background: var(--mauve); border-radius: 2px; box-shadow: 0 0 8px rgba(203,166,247,.5); }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
+
+  .terminal-window {
+    background: var(--crust); border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.07);
+    box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.03) inset;
+    margin-bottom: 32px; overflow: hidden;
+  }
+  .terminal-header {
+    display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+    background: var(--mantle); border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red    { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green  { background: #28c840; }
+  .terminal-title { flex: 1; text-align: center; font-family: var(--mono); font-size: .72rem; color: var(--sub0); }
+  .terminal-body { padding: 20px 24px; min-height: 280px; max-height: 320px; overflow-y: auto; }
+  .terminal-body::-webkit-scrollbar { width: 4px; }
+  .terminal-body::-webkit-scrollbar-thumb { background: var(--s1); border-radius: 2px; }
+
+  .xac-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  .xac-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 12px; padding: 24px 20px;
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+    position: relative; overflow: hidden;
+  }
+  .xac-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .xac-card:hover { transform: translateY(-5px) scale(1.02); border-color: color-mix(in srgb, var(--accent) 60%, transparent); box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 18%, transparent), 0 12px 40px rgba(0,0,0,.4); }
+  .xac-card:hover::before { opacity: 1; }
+  .card-icon { display: block; font-size: 2rem; color: var(--accent); margin-bottom: 12px; }
+  .card-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .card-desc { font-size: .8rem; color: var(--sub0); line-height: 1.5; margin-bottom: 10px; }
+  .card-tag { display: inline-block; font-family: var(--mono); font-size: .68rem; padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+
+  @media (max-width: 768px) { .xac-cards { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 480px) { .xac-cards { grid-template-columns: 1fr; } }
+</style>

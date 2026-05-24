@@ -1,0 +1,40 @@
+/* Catppuccin Mocha */
+:root {
+  --bg:       #1e1e2e;
+  --mantle:   #181825;
+  --crust:    #11111b;
+  --s0:       #313244;
+  --s1:       #45475a;
+  --text:     #cdd6f4;
+  --sub0:     #a6adc8;
+  --sub1:     #bac2de;
+  --mauve:    #cba6f7;
+  --red:      #f38ba8;
+  --green:    #a6e3a1;
+  --blue:     #89b4fa;
+  --teal:     #94e2d5;
+  --peach:    #fab387;
+  --yellow:   #f9e2af;
+  --sky:      #89dceb;
+  --lavender: #b4befe;
+  --rosewater:#f5e0dc;
+
+  --font:  'Inter', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font); background: var(--bg); color: var(--text);
+       -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: rgba(203,166,247,.3); color: var(--text); }
+a { color: var(--mauve); text-decoration: none; }
+
+/* Reading progress */
+#progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--mauve), var(--green));
+  z-index: 1000; transition: width 80ms linear;
+}

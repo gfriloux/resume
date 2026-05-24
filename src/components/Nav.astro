@@ -1,0 +1,44 @@
+---
+const links = [
+  { href: '#hero', label: 'Accueil' },
+  { href: '#xac',  label: 'XaC' },
+  { href: '#about', label: 'Profil' },
+  { href: '#experience', label: 'Expérience' },
+  { href: '#skills', label: 'Compétences' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+<nav id="topnav">
+  {links.map(l => <a href={l.href}>{l.label}</a>)}
+</nav>
+
+<script>
+  // Active section highlight
+  const links = document.querySelectorAll('#topnav a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        document.querySelector(`#topnav a[href="#${e.target.id}"]`)?.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('section[id], footer[id]').forEach(s => io.observe(s));
+</script>
+
+<style>
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 4px; padding: 12px 24px;
+    background: rgba(17,17,27,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(203,166,247,0.08);
+  }
+  a {
+    color: var(--sub0); font-size: .78rem; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 6px;
+    transition: color .2s, background .2s;
+  }
+  a:hover, a.active { color: var(--mauve); background: rgba(203,166,247,.1); }
+</style>
