@@ -16,10 +16,12 @@
 
           packages = with pkgs; [
             nodejs_22  # LTS, Astro 4 requires Node 18+, npm bundled
+            chromium
           ];
 
           shellHook = ''
             echo "resume dev shell — node $(node --version), npm $(npm --version)"
+            export CHROME_PATH="${pkgs.chromium}/bin/chromium"
           '';
         };
       }

@@ -99,31 +99,31 @@ a { color: var(--mauve); text-decoration: none; }
   #hero {
     min-height: 0 !important;
     height: auto !important;
-    padding: 0 0 8pt;
+    padding: 0 0 8pt !important;
     border-bottom: 2pt solid var(--mauve);
-    margin-bottom: 8pt;
+    margin-bottom: 8pt !important;
     display: block !important;
     justify-content: unset !important;
   }
   .hero-name {
-    font-size: 22pt;
+    font-size: 22pt !important;
     color: var(--text);
-    margin-bottom: 2pt;
+    margin-bottom: 2pt !important;
   }
-  .typewriter-wrap { margin-bottom: 4pt; }
-  .typewriter      { font-family: var(--font); font-size: 12pt; color: var(--mauve); font-weight: 600; }
-  .prompt          { display: none; }
-  .badges          { gap: 4pt; margin-bottom: 4pt; }
+  .typewriter-wrap { margin-bottom: 4pt !important; }
+  .typewriter      { font-family: var(--font); font-size: 12pt !important; color: var(--mauve); font-weight: 600; }
+  .prompt          { display: none !important; }
+  .badges          { gap: 4pt !important; margin-bottom: 4pt !important; }
   .badge {
-    font-size: 7.5pt;
-    padding: 1.5pt 7pt;
-    border: 1pt solid #ccc;
-    background: #f0ebff;
+    font-size: 7.5pt !important;
+    padding: 1.5pt 7pt !important;
+    border: 1pt solid #ccc !important;
+    background: #f0ebff !important;
     color: var(--mauve);
     font-family: var(--font);
   }
-  .contact-bar { gap: 12pt; }
-  .contact-bar a { font-size: 8pt; color: var(--sub0); }
+  .contact-bar { gap: 12pt !important; }
+  .contact-bar a { font-size: 8pt !important; color: var(--sub0); }
   .contact-bar i  { color: #999; }
 
   /* ---- Section titles ---- */
@@ -138,80 +138,78 @@ a { color: var(--mauve); text-decoration: none; }
   .section-title::after  { background: #e0e0e8; }
 
   /* ---- XaC ---- */
-  #xac { overflow: visible; }
+  #xac { overflow: visible; break-inside: avoid; }
   #xac::after { display: none !important; }
   .xac-cards {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6pt;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6pt !important;
   }
   .xac-card {
-    background: #f7f4ff;
-    border: 1pt solid #d4c6f7;
-    border-radius: 5pt;
-    padding: 7pt;
+    background: #f7f4ff !important;
+    border: 1pt solid #d4c6f7 !important;
+    border-radius: 5pt !important;
+    padding: 7pt !important;
     break-inside: avoid;
   }
-  .card-icon  { font-size: 12pt; margin-bottom: 3pt; }
-  .card-name  { font-size: 8.5pt; color: var(--text); }
-  .card-desc  { font-size: 7pt; color: var(--sub0); }
-  .card-tag   { font-size: 6pt; background: #ede9fe; color: var(--mauve); border: none; }
+  .card-icon  { font-size: 12pt !important; margin-bottom: 3pt !important; }
+  .card-name  { font-size: 8.5pt !important; }
+  .card-desc  { font-size: 7pt !important; }
+  .card-tag   { font-size: 6pt !important; background: #ede9fe !important; border: none !important; }
 
   /* ---- Timeline ---- */
-  .timeline      { padding-left: 18pt; }
-  .timeline-track { background: #e0e0e8; width: 1.5pt; }
-  .timeline-item { margin-bottom: 8pt; break-inside: avoid; }
+  .timeline      { padding-left: 18pt !important; }
+  .timeline-track { background: #e0e0e8 !important; width: 1.5pt !important; }
+  .timeline-item { margin-bottom: 8pt !important; break-inside: avoid; }
   .tl-dot {
-    left: -24pt; top: 4pt;
-    width: 8pt; height: 8pt;
-    background: var(--mauve);
-    border: 1.5pt solid #fff;
+    left: -24pt !important; top: 4pt !important;
+    width: 8pt !important; height: 8pt !important;
+    background: var(--mauve) !important;
+    border: 1.5pt solid #fff !important;
   }
   .tl-card {
-    background: transparent;
-    border: 1pt solid #e0e0e8;
-    border-radius: 4pt;
-    padding: 6pt 8pt;
+    background: transparent !important;
+    border: 1pt solid #e0e0e8 !important;
+    border-radius: 4pt !important;
+    padding: 6pt 8pt !important;
   }
-  .tl-role    { font-size: 9.5pt; color: var(--text); }
-  .tl-company { font-size: 8pt; }
+  .tl-role    { font-size: 9.5pt !important; }
+  .tl-company { font-size: 8pt !important; }
   .tl-company a { color: var(--mauve); }
   .tl-dates {
-    background: #f0ebff;
-    color: var(--mauve);
-    font-size: 7pt;
-    padding: 1.5pt 5pt;
+    background: #f0ebff !important;
+    font-size: 7pt !important;
+    padding: 1.5pt 5pt !important;
   }
-  .tl-desc  { font-size: 8pt; color: var(--sub1); margin: 3pt 0; }
-  .tl-tags  { gap: 3pt; }
-  .tl-tag   { font-size: 6.5pt; background: #f5f5f5; border: 1pt solid #ddd; color: var(--sub0); padding: 1pt 4pt; }
+  .tl-desc  { font-size: 8pt !important; margin: 3pt 0 !important; }
+  .tl-tags  { gap: 3pt !important; }
+  .tl-tag   { font-size: 6.5pt !important; background: #f5f5f5 !important; border: 1pt solid #ddd !important; padding: 1pt 4pt !important; }
 
   /* ---- Skills ---- */
-  .skill-groups { gap: 8pt; }
-  .group-label  { font-size: 7pt; margin-bottom: 3pt; }
-  .group-badges { gap: 4pt; }
+  .skill-groups { gap: 8pt !important; }
+  .group-label  { font-size: 7pt !important; margin-bottom: 3pt !important; }
+  .group-badges { gap: 4pt !important; }
   .skill-badge {
-    font-size: 7.5pt;
-    padding: 1.5pt 7pt;
-    background: #f5f5f5;
-    border: 1pt solid #ddd;
-    color: var(--text);
-    border-radius: 999pt;
+    font-size: 7.5pt !important;
+    padding: 1.5pt 7pt !important;
+    background: #f5f5f5 !important;
+    border: 1pt solid #ddd !important;
+    border-radius: 999pt !important;
   }
 
   /* ---- Education ---- */
   .edu-card {
-    background: transparent;
-    border: 1pt solid #e0e0e8;
-    padding: 6pt 8pt;
-    border-radius: 4pt;
+    background: transparent !important;
+    border: 1pt solid #e0e0e8 !important;
+    padding: 6pt 8pt !important;
+    border-radius: 4pt !important;
     break-inside: avoid;
   }
 
   /* ---- Footer ---- */
-  footer { border-top: 1pt solid #e0e0e8; padding-top: 6pt; margin-top: 8pt; }
-  .footer-links { gap: 12pt; }
-  .footer-link  { font-size: 7.5pt; color: var(--sub0); }
-  .footer-copy  { font-size: 6.5pt; color: #aaa; }
+  footer { border-top: 1pt solid #e0e0e8; padding-top: 6pt !important; margin-top: 8pt !important; }
+  .footer-links { gap: 12pt !important; }
+  .footer-link  { font-size: 7.5pt !important; }
+  .footer-copy  { font-size: 6.5pt !important; }
 
   /* Page breaks */
   #experience, #skills, #education { break-before: auto; }

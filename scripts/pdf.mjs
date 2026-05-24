@@ -55,6 +55,16 @@ await page.goto(`http://localhost:${PORT}`, { waitUntil: 'networkidle0', timeout
 await page.evaluateHandle('document.fonts.ready');
 
 const outPath = resolve(root, 'dist/CV – Guillaume Friloux.pdf');
+
+const heights = await page.evaluate(() => {
+    const r = (sel) => {
+      const el = document.querySelector(sel);
+      return el ? Math.round(el.getBoundingClientRect().height) : null;
+    };
+    return { hero: r('#hero'), xac: r('#xac'), page: document.documentElement.scrollHeight };
+  });
+  console.log('Heights (px @96dpi):', heights);
+
 await page.pdf({
   path: outPath,
   format: 'A4',
