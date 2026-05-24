@@ -25,6 +25,14 @@ const { data } = Astro.props;
             <i class="nf nf-md-account_clock"></i>
             <span>{data.yearsExp} ans d'expérience</span>
           </div>
+          <a class="meta-item meta-link" href={data.legacy} target="_blank" rel="noopener">
+            <i class="nf nf-md-history"></i>
+            <span>Site legacy</span>
+          </a>
+          <a class="meta-item meta-link" href={data.github} target="_blank" rel="noopener">
+            <i class="nf nf-fa-github"></i>
+            <span>GitHub</span>
+          </a>
         </div>
       </div>
       <div class="about-langs">
@@ -35,14 +43,6 @@ const { data } = Astro.props;
             <span class="lang-level">{l.level}</span>
           </div>
         ))}
-        <div class="about-links">
-          <a href={data.legacy} target="_blank" rel="noopener">
-            <i class="nf nf-md-history"></i> Site legacy
-          </a>
-          <a href={data.github} target="_blank" rel="noopener">
-            <i class="nf nf-fa-github"></i> GitHub
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -89,6 +89,8 @@ const { data } = Astro.props;
   .meta-item i { color: var(--mauve); font-size: 1rem; }
   .meta-remote { color: var(--green); }
   .meta-remote i { color: var(--green); }
+  .meta-link { color: var(--sub0); text-decoration: none; transition: color .2s; }
+  .meta-link:hover { color: var(--mauve); }
 
   .about-langs {
     background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
@@ -106,17 +108,5 @@ const { data } = Astro.props;
   .lang-name { font-weight: 600; font-size: .88rem; color: var(--text); }
   .lang-level { font-family: var(--mono); font-size: .72rem; color: var(--mauve); background: rgba(203,166,247,.1); padding: 2px 8px; border-radius: 4px; }
 
-  .about-links {
-    margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.06);
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .about-links a {
-    display: flex; align-items: center; gap: 8px;
-    font-size: .82rem; color: var(--sub0); transition: color .2s;
-    padding: 6px 8px; border-radius: 6px; transition: color .2s, background .2s;
-  }
-  .about-links a:hover { color: var(--mauve); background: rgba(203,166,247,.07); }
-  .about-links i { font-size: .9rem; }
-
-  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
 </style>
