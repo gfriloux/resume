@@ -131,12 +131,13 @@ a { color: var(--mauve); text-decoration: none; }
     margin-bottom: 12pt;
     border-bottom: 1pt solid #e0e0e8;
     padding-bottom: 4pt;
+    break-after: avoid;
   }
   .section-title::before { background: var(--mauve); box-shadow: none; }
   .section-title::after  { background: #e0e0e8; }
 
   /* ---- XaC ---- */
-  #xac { overflow: visible; }
+  #xac { overflow: visible; break-inside: avoid; }
   #xac::after { display: none !important; }
   .xac-cards {
     grid-template-columns: repeat(4, 1fr);
