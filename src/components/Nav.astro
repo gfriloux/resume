@@ -9,11 +9,11 @@ const links = [
 ];
 ---
 <nav id="topnav">
+  <span class="led"></span>
   {links.map(l => <a href={l.href}>{l.label}</a>)}
 </nav>
 
 <script>
-  // Active section highlight
   const links = document.querySelectorAll('#topnav a');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -28,17 +28,40 @@ const links = [
 
 <style>
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: center; gap: 4px; padding: 12px 24px;
-    background: rgba(17,17,27,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(203,166,247,0.08);
+    position: fixed; top: 14px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex; align-items: center; gap: 4px;
+    padding: 6px;
+    border: 1px solid rgba(203,166,247,.18);
+    background: rgba(30,30,46,.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .led {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    margin: 0 6px;
+    animation: nav-blink 1.6s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes nav-blink {
+    0%,100% { opacity: 1; }
+    50%     { opacity: .35; }
   }
   a {
-    color: var(--sub0); font-size: .78rem; font-weight: 600;
-    letter-spacing: .06em; text-transform: uppercase;
-    padding: 6px 14px; border-radius: 6px;
+    font-family: var(--mono); font-size: .72rem;
+    letter-spacing: .04em; white-space: nowrap;
+    padding: 8px 14px; border-radius: 999px;
+    color: var(--sub0);
     transition: color .2s, background .2s;
   }
-  a:hover, a.active { color: var(--mauve); background: rgba(203,166,247,.1); }
+  a:hover { color: var(--text); }
+  a.active { color: var(--crust); background: var(--mauve); font-weight: 600; }
 </style>

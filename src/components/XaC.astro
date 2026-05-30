@@ -6,6 +6,7 @@ const { data } = Astro.props;
 
 <section id="xac">
   <div class="xac-inner">
+    <p class="section-eyebrow">01 · everything-as-code</p>
     <p class="section-title">Infrastructure as Code</p>
 
     <div class="terminal-window" id="xac-terminal">
@@ -36,41 +37,46 @@ const { data } = Astro.props;
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  // Terminal typing on scroll
-  const terminalLines = [
-    { type: 'cmd',     text: '❯ terraform plan' },
-    { type: 'comment', text: "  # génération du plan d'exécution" },
-    { type: 'output',  text: '  + aws_instance.app_server[0]' },
-    { type: 'output',  text: '  + aws_instance.app_server[1]' },
-    { type: 'output',  text: '  + aws_security_group.allow_tls' },
-    { type: 'number',  text: '  Plan: 47 to add, 1 to change, 0 to destroy.' },
-    { type: 'blank',   text: '' },
-    { type: 'cmd',     text: '❯ terraform apply --auto-approve' },
-    { type: 'success', text: '  Apply complete! Resources: 47 added.' },
-    { type: 'blank',   text: '' },
-    { type: 'cmd',     text: '❯ ansible-playbook -i inventory/production deploy.yml' },
-    { type: 'success', text: '  PLAY RECAP ── ok=42  changed=8  failed=0' },
-    { type: 'blank',   text: '' },
-    { type: 'comment', text: '# nixos/configuration.nix' },
-    { type: 'attr',    text: 'services.nginx.enable = true;' },
-    { type: 'attr',    text: 'services.nginx.virtualHosts."api.example.com" = {' },
-    { type: 'attr',    text: '  forceSSL = true; enableACME = true;' },
-    { type: 'attr',    text: '};' },
-    { type: 'blank',   text: '' },
-    { type: 'cmd',     text: '❯ nixos-rebuild switch --flake .#production' },
-    { type: 'success', text: '  activating the configuration... [done]' },
-  ];
-
-  const colorMap: Record<string,string> = {
-    cmd: '#a6e3a1', comment: '#6c7086', output: '#bac2de',
-    number: '#f9e2af', success: '#a6e3a1', blank: 'transparent',
-    attr: '#cba6f7'
+  // Terminal typing on scroll — multi-colour syntax highlighting
+  const K: Record<string, string> = {
+    pr: '#a6e3a1', kw: '#cba6f7', fn: '#89b4fa', str: '#a6e3a1',
+    opt: '#89dceb', cm: '#6c7086', ok: '#a6e3a1', num: '#fab387',
+    at: '#cba6f7', tx: '#bac2de',
   };
 
-  const body = document.getElementById('terminal-body');
+  type Part = [string, string];
+  const lines: Array<{ parts: Part[] }> = [
+    { parts: [['❯ ', K.pr], ['terraform ', K.kw], ['plan', K.fn]] },
+    { parts: [["  # génération du plan d'exécution", K.cm]] },
+    { parts: [['  + ', K.ok], ['aws_instance', K.tx], ['.app_server[', K.tx], ['0', K.num], [']', K.tx]] },
+    { parts: [['  + ', K.ok], ['aws_instance', K.tx], ['.app_server[', K.tx], ['1', K.num], [']', K.tx]] },
+    { parts: [['  + ', K.ok], ['aws_security_group', K.tx], ['.allow_tls', K.tx]] },
+    { parts: [['  Plan: ', K.tx], ['47', K.num], [' to add, ', K.tx], ['1', K.num], [' to change, ', K.tx], ['0', K.num], [' to destroy.', K.tx]] },
+    { parts: [] },
+    { parts: [['❯ ', K.pr], ['terraform ', K.kw], ['apply ', K.fn], ['--auto-approve', K.opt]] },
+    { parts: [['  Apply complete! Resources: ', K.ok], ['47', K.num], [' added.', K.ok]] },
+    { parts: [] },
+    { parts: [['❯ ', K.pr], ['ansible-playbook ', K.kw], ['-i ', K.opt], ['inventory/production', K.str], [' deploy.yml', K.fn]] },
+    { parts: [['  PLAY RECAP ── ', K.tx], ['ok=42 ', K.ok], ['changed=8 ', K.ok], ['failed=0', K.ok]] },
+    { parts: [] },
+    { parts: [['  # nixos/configuration.nix', K.cm]] },
+    { parts: [['  services', K.at], ['.nginx', K.fn], ['.enable', K.fn], [' = ', K.tx], ['true', K.kw], [';', K.tx]] },
+    { parts: [['  services', K.at], ['.nginx', K.fn], ['.virtualHosts', K.fn], ['."api.example.com"', K.str], [' = {', K.tx]] },
+    { parts: [['    forceSSL', K.at], [' = ', K.tx], ['true', K.kw], ['; enableACME = ', K.tx], ['true', K.kw], [';', K.tx]] },
+    { parts: [['  };', K.tx]] },
+    { parts: [] },
+    { parts: [['❯ ', K.pr], ['nixos-rebuild ', K.kw], ['switch ', K.fn], ['--flake ', K.opt], ['.#production', K.str]] },
+    { parts: [['  activating the configuration... ', K.tx], ['[done]', K.ok]] },
+  ];
+
+  const termBody = document.getElementById('terminal-body');
   let revealed = false;
 
-  if (body) {
+  if (termBody) {
+    const blinkStyle = document.createElement('style');
+    blinkStyle.textContent = '@keyframes term-blink { 50% { background: transparent } }';
+    document.head.appendChild(blinkStyle);
+
     ScrollTrigger.create({
       trigger: '#xac-terminal',
       start: 'top 70%',
@@ -79,27 +85,48 @@ const { data } = Astro.props;
         revealed = true;
         let lineIdx = 0;
         const showLine = () => {
-          if (lineIdx >= terminalLines.length) return;
-          const { type, text } = terminalLines[lineIdx++];
-          const span = document.createElement('div');
-          span.textContent = text;
-          span.style.color = colorMap[type] ?? '#bac2de';
-          span.style.fontFamily = 'var(--mono)';
-          span.style.fontSize = '.82rem';
-          span.style.lineHeight = '1.7';
-          body.appendChild(span);
-          body.scrollTop = body.scrollHeight;
-          setTimeout(showLine, text.length ? 60 : 20);
+          if (lineIdx >= lines.length) {
+            const cursor = document.createElement('span');
+            cursor.style.cssText = 'display:inline-block;width:.6ch;height:1em;background:var(--mauve);margin-left:2px;vertical-align:text-bottom;animation:term-blink 1s steps(1) infinite';
+            termBody.appendChild(cursor);
+            return;
+          }
+          const { parts } = lines[lineIdx++];
+          const div = document.createElement('div');
+          div.style.cssText = 'line-height:1.7;font-size:.82rem;font-family:var(--mono);min-height:1.3em';
+          if (parts.length === 0) {
+            div.innerHTML = '&nbsp;';
+          } else {
+            parts.forEach(([text, color]) => {
+              const span = document.createElement('span');
+              span.textContent = text;
+              span.style.color = color;
+              div.appendChild(span);
+            });
+          }
+          termBody.appendChild(div);
+          termBody.scrollTop = termBody.scrollHeight;
+          const len = parts.reduce((s, [t]) => s + t.length, 0);
+          setTimeout(showLine, len ? Math.max(35, len * 4) : 20);
         };
         showLine();
       }
     });
   }
 
-  // Cards scroll reveal with stagger
-  gsap.from('.xac-card', {
-    scrollTrigger: { trigger: '.xac-cards', start: 'top 80%' },
-    y: 40, opacity: 0, stagger: .1, duration: .7, ease: 'power3.out'
+  // Cards scroll reveal — IntersectionObserver with stagger
+  const cardIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('visible');
+        cardIO.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -5% 0px' });
+
+  document.querySelectorAll<HTMLElement>('.xac-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 100}ms`;
+    cardIO.observe(card);
   });
 </script>
 
@@ -139,8 +166,15 @@ const { data } = Astro.props;
     background: rgba(255,255,255,.025);
     border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     border-radius: 12px; padding: 24px 20px;
-    transition: all .3s cubic-bezier(.4,0,.2,1);
+    transition: all .3s cubic-bezier(.4,0,.2,1), opacity .5s ease, transform .5s ease;
     position: relative; overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    display: flex; flex-direction: column;
+  }
+  .xac-card.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   .xac-card::before {
     content: ''; position: absolute; inset: 0;
@@ -151,8 +185,8 @@ const { data } = Astro.props;
   .xac-card:hover::before { opacity: 1; }
   .card-icon { display: block; font-size: 2rem; color: var(--accent); margin-bottom: 12px; }
   .card-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-  .card-desc { font-size: .8rem; color: var(--sub0); line-height: 1.5; margin-bottom: 10px; }
-  .card-tag { display: inline-block; font-family: var(--mono); font-size: .68rem; padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+  .card-desc { font-size: .8rem; color: var(--sub0); line-height: 1.5; margin-bottom: 10px; flex: 1; }
+  .card-tag { display: inline-block; font-family: var(--mono); font-size: .68rem; padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); margin-top: auto; align-self: flex-start; }
 
   @media (max-width: 768px) { .xac-cards { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 480px) { .xac-cards { grid-template-columns: 1fr; } }

@@ -15,10 +15,25 @@ export const resume = {
     languages: [
       { lang: "Français", level: "Natif" },
       { lang: "Anglais", level: "Lu / Écrit" }
+    ],
+    status: {
+      uptime: "28y",
+      role: "sysadmin",
+      stack: "NixOS / Terraform",
+      load: "0.42",
+      remote: "yes",
+      coffee: "∞"
+    },
+    quote: "// rigoureux · passionné · pragmatique · remote-native",
+    facts: [
+      { label: "Expérience",      value: "28",   unit: "ans", sub: "Linux & systèmes",          color: "mauve" },
+      { label: "Serveurs gérés",  value: "200+", unit: "",    sub: "Infrastructure Galilée",     color: "teal"  },
+      { label: "Localisation",    value: "40",   unit: "",    sub: "Landes · Remote-first",      color: "blue"  },
+      { label: "Disponibilité",   value: "now",  unit: "",    sub: "Ouvert aux opportunités",    color: "green" },
     ]
   },
   xac: [
-    { tool: "Terraform", accent: "#cba6f7", icon: "nf-custom-terraform", tag: "IaC", desc: "Provisionnement AWS en code versionné. 200+ serveurs gérés." },
+    { tool: "Terraform", accent: "#cba6f7", icon: "nf-dev-terraform", tag: "IaC", desc: "Provisionnement AWS en code versionné. 200+ serveurs gérés." },
     { tool: "Ansible", accent: "#f38ba8", icon: "nf-dev-ansible", tag: "Automation", desc: "Configuration et déploiement idempotent sur l'ensemble du parc." },
     { tool: "NixOS", accent: "#89b4fa", icon: "nf-linux-nixos", tag: "OS", desc: "Système reproductible déclaratif. Rollbacks atomiques, builds déterministes." },
     { tool: "Nix Flakes", accent: "#94e2d5", icon: "nf-md-snowflake", tag: "Reproducible", desc: "Envs dev portables (Devbox). Images Docker buildées via Nix." }

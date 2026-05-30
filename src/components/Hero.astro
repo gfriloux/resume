@@ -1,17 +1,19 @@
 ---
 import { resume } from '../data/resume';
+import StatusPanel from './StatusPanel.astro';
 interface Props { data: typeof resume.basics; }
 const { data } = Astro.props;
 const badges = ['28 ans Linux', 'Terraform', 'NixOS', 'AWS', 'C / Rust'];
 ---
 
 <section id="hero">
+  <StatusPanel status={data.status} />
   <div class="hero-inner">
     <p class="eyebrow"><span class="line"></span> ~/sysadmin --senior</p>
     <h1 class="hero-name">{data.name}</h1>
     <div class="typewriter-wrap">
       <span class="prompt">❯</span>
-      <span class="typewriter" data-text={data.title}></span>
+      <span class="typewriter" data-text={data.title}>{data.title}</span>
       <span class="cursor">█</span>
     </div>
     <div class="badges">
@@ -42,11 +44,12 @@ const badges = ['28 ans Linux', 'Terraform', 'NixOS', 'AWS', 'C / Rust'];
     .from('.contact-bar a', { y: 10, opacity: 0, stagger: .06, duration: .4 }, '-=.3')
     .from('.scroll-hint', { opacity: 0, duration: .5 }, '-=.2');
 
-  // Typewriter effect
+  // Typewriter effect — skip in print mode (PDF), text already in HTML
   const el = document.querySelector('.typewriter') as HTMLElement;
   const cursor = document.querySelector('.cursor') as HTMLElement;
-  if (el && cursor) {
+  if (el && cursor && !window.matchMedia('print').matches) {
     const text = el.dataset.text ?? '';
+    el.textContent = '';
     let i = 0;
     const type = () => {
       if (i < text.length) { el.textContent += text[i++]; setTimeout(type, 55); }

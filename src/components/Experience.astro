@@ -2,15 +2,17 @@
 import { resume } from '../data/resume';
 interface Props { data: typeof resume.experience; }
 const { data } = Astro.props;
+const dotColors = ['var(--mauve)', 'var(--blue)', 'var(--teal)', 'var(--green)', 'var(--peach)', 'var(--red)'];
 ---
 
 <section id="experience">
   <div class="exp-inner">
+    <p class="section-eyebrow">03 · expérience</p>
     <p class="section-title">Expérience Professionnelle</p>
     <div class="timeline" id="timeline">
       <div class="timeline-track"><div class="timeline-progress" id="tl-progress"></div></div>
       {data.map((job, i) => (
-        <article class="timeline-item" data-index={i}>
+        <article class="timeline-item" data-index={i} style={`--dc: ${dotColors[i % dotColors.length]}`}>
           <div class="tl-dot"></div>
           <div class="tl-card">
             <div class="tl-header">
@@ -53,14 +55,19 @@ const { data } = Astro.props;
     }
   });
 
-  // Cards reveal
-  document.querySelectorAll('.timeline-item').forEach((item, i) => {
-    gsap.from(item, {
-      scrollTrigger: { trigger: item, start: 'top 85%' },
-      x: -40, opacity: 0, duration: .7,
-      ease: 'power3.out',
-      delay: i * 0.05
+  // Cards reveal — IntersectionObserver with stagger delay
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).classList.add('in');
+        revealIO.unobserve(e.target);
+      }
     });
+  }, { rootMargin: '0px 0px -10% 0px' });
+
+  document.querySelectorAll<HTMLElement>('.timeline-item').forEach((item, i) => {
+    item.style.transitionDelay = `${i * 90}ms`;
+    revealIO.observe(item);
   });
 </script>
 
@@ -81,30 +88,44 @@ const { data } = Astro.props;
     background: rgba(203,166,247,.1);
   }
   .timeline-progress {
-    width: 100%; height: 100%; background: linear-gradient(to bottom, var(--mauve), rgba(203,166,247,.2));
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, var(--mauve), var(--blue), var(--teal), var(--green), var(--peach), var(--red));
     transform-origin: top; transform: scaleY(0);
   }
 
-  .timeline-item { position: relative; margin-bottom: 40px; }
+  .timeline-item {
+    position: relative; margin-bottom: 40px;
+    opacity: 0; transform: translateX(-30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .timeline-item.in { opacity: 1; transform: translateX(0); }
+
   .tl-dot {
-    position: absolute; left: -41px; top: 20px;
+    position: absolute; left: -43px; top: 20px;
     width: 14px; height: 14px; border-radius: 50%;
-    background: var(--mauve); border: 2px solid var(--bg);
-    box-shadow: 0 0 0 0 rgba(203,166,247,.4);
+    background: var(--dc, var(--mauve)); border: 2px solid var(--bg);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--dc, var(--mauve)) 60%, transparent), 0 0 0 0 color-mix(in srgb, var(--dc, var(--mauve)) 40%, transparent);
     animation: pulse-dot 2.5s ease-in-out infinite;
   }
   @keyframes pulse-dot {
-    0%   { box-shadow: 0 0 0 0 rgba(203,166,247,.4); }
-    70%  { box-shadow: 0 0 0 8px rgba(203,166,247,0); }
-    100% { box-shadow: 0 0 0 0 rgba(203,166,247,0); }
+    0%   { box-shadow: 0 0 14px color-mix(in srgb, var(--dc, var(--mauve)) 60%, transparent), 0 0 0 0 color-mix(in srgb, var(--dc, var(--mauve)) 40%, transparent); }
+    70%  { box-shadow: 0 0 14px color-mix(in srgb, var(--dc, var(--mauve)) 60%, transparent), 0 0 0 8px color-mix(in srgb, var(--dc, var(--mauve)) 0%, transparent); }
+    100% { box-shadow: 0 0 14px color-mix(in srgb, var(--dc, var(--mauve)) 60%, transparent), 0 0 0 0 color-mix(in srgb, var(--dc, var(--mauve)) 0%, transparent); }
   }
 
   .tl-card {
     background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.05);
     border-radius: 12px; padding: 20px 24px;
     transition: border-color .2s, box-shadow .2s, transform .2s;
+    position: relative; overflow: hidden;
   }
-  .tl-card:hover { border-color: rgba(203,166,247,.25); transform: translateX(4px); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+  .tl-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--dc, var(--mauve)) 12%, transparent), transparent 60%);
+    opacity: 0; transition: opacity .3s;
+  }
+  .tl-card:hover { border-color: color-mix(in srgb, var(--dc, var(--mauve)) 30%, transparent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.35), 0 0 20px color-mix(in srgb, var(--dc, var(--mauve)) 8%, transparent); }
+  .tl-card:hover::before { opacity: 1; }
 
   .tl-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
   .tl-role { font-size: 1rem; font-weight: 700; color: var(--text); }

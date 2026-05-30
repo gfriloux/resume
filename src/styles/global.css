@@ -34,9 +34,60 @@ a { color: var(--mauve); text-decoration: none; }
 
 /* Reading progress */
 #progress {
-  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-  background: linear-gradient(90deg, var(--blue), var(--mauve), var(--green));
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--mauve), var(--blue), var(--teal), var(--green));
+  box-shadow: 0 0 10px rgba(203,166,247,.6);
   z-index: 1000; transition: width 80ms linear;
+}
+
+/* Background decorative grid */
+.bg-grid {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(203,166,247,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203,166,247,.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 35%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 35%, transparent 80%);
+  z-index: 0;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%,100% { opacity: .55; }
+  50%     { opacity: 1; }
+}
+.scanline {
+  position: fixed; left: 0; right: 0;
+  height: 100px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(203,166,247,.06) 50%, transparent);
+  mix-blend-mode: screen;
+  z-index: 1;
+  animation: scan 9s linear infinite;
+}
+@keyframes scan {
+  0%   { transform: translateY(-20vh); }
+  100% { transform: translateY(120vh); }
+}
+
+/* Section eyebrow numbers */
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: .68rem;
+  color: var(--mauve);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  opacity: .7;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--mauve);
 }
 
 /* ============================================================
@@ -82,10 +133,15 @@ a { color: var(--mauve); text-decoration: none; }
   canvas,
   #progress,
   #topnav,
+  .bg-grid,
+  .scanline,
+  .status-panel,
   .scroll-hint,
   .cursor,
   .hero-prompt,
   .eyebrow,
+  .section-eyebrow,
+  .facts-grid,
   .terminal-window,
   .xac-glow,
   .timeline-progress,
@@ -164,19 +220,19 @@ a { color: var(--mauve); text-decoration: none; }
     padding: 7pt !important;
     break-inside: avoid;
   }
-  .card-icon  { font-size: 12pt !important; margin-bottom: 3pt !important; }
+  .card-icon  { display: none !important; }
   .card-name  { font-size: 8.5pt !important; }
   .card-desc  { font-size: 7pt !important; }
   .card-tag   { font-size: 6pt !important; background: #ede9fe !important; border: none !important; }
 
   /* ---- Timeline ---- */
   .timeline      { padding-left: 18pt !important; }
-  .timeline-track { background: #e0e0e8 !important; width: 1.5pt !important; }
+  .timeline-track { left: 6pt !important; background: #e0e0e8 !important; width: 2pt !important; }
   .timeline-item { margin-bottom: 8pt !important; break-inside: avoid; }
   .tl-dot {
-    left: -24pt !important; top: 4pt !important;
+    left: -15pt !important; top: 4pt !important;
     width: 8pt !important; height: 8pt !important;
-    background: var(--mauve) !important;
+    background: var(--dc, var(--mauve)) !important;
     border: 1.5pt solid #fff !important;
   }
   .tl-card {

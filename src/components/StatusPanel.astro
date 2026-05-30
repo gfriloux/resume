@@ -1,0 +1,69 @@
+---
+interface Props {
+  status: {
+    uptime: string;
+    role: string;
+    stack: string;
+    load: string;
+    remote: string;
+    coffee: string;
+  };
+}
+const { status } = Astro.props;
+---
+
+<aside class="status-panel">
+  <div class="sp-title"><span class="led"></span> guillaume@infra:~$</div>
+  <div class="sp-row"><span class="k">uptime</span><span class="v ok">{status.uptime}</span></div>
+  <div class="sp-row"><span class="k">role</span><span class="v cool">{status.role}</span></div>
+  <div class="sp-row"><span class="k">stack</span><span class="v">{status.stack}</span></div>
+  <div class="sp-row"><span class="k">load</span><span class="v ok">{status.load}</span></div>
+  <div class="sp-row"><span class="k">remote</span><span class="v ok">{status.remote}</span></div>
+  <div class="sp-row"><span class="k">coffee</span><span class="v warn">{status.coffee}</span></div>
+</aside>
+
+<style>
+.status-panel {
+  position: absolute;
+  top: 90px; right: 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--sub0);
+  border: 1px solid var(--s1);
+  background: rgba(24,24,37,.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 12px 14px;
+  width: 220px;
+  line-height: 1.7;
+  z-index: 10;
+}
+.sp-title {
+  display: flex; align-items: center; gap: 8px;
+  padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 1px dashed var(--s1);
+  color: var(--mauve);
+  font-size: 10px;
+}
+.led {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px var(--green);
+  animation: led-blink 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes led-blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+.sp-row { display: flex; justify-content: space-between; gap: 10px; }
+.k { color: var(--s1); }
+.v { color: var(--text); }
+.v.ok   { color: var(--green); }
+.v.warn { color: var(--peach); }
+.v.cool { color: var(--blue); }
+
+@media (max-width: 900px) {
+  .status-panel { display: none; }
+}
+</style>

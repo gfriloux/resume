@@ -6,11 +6,15 @@ const { data } = Astro.props;
 
 <section id="skills">
   <div class="skills-inner">
+    <p class="section-eyebrow">04 · compétences</p>
     <p class="section-title">Compétences</p>
     <div class="skill-groups">
-      {data.map(group => (
+      {data.map((group, i) => (
         <div class="skill-group">
-          <h3 class="group-label" style={`color: ${group.accent}`}>{group.group}</h3>
+          <h3 class="group-label" style={`color: ${group.accent}`}>
+            <span class="group-num">{`0${i + 1}`}</span>
+            {group.group}
+          </h3>
           <div class="group-badges">
             {group.items.map(item => (
               <span class="skill-badge" style={`--g: ${group.accent}`}>{item}</span>
@@ -49,7 +53,8 @@ const { data } = Astro.props;
   .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
 
   .skill-groups { display: flex; flex-direction: column; gap: 32px; }
-  .group-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+  .group-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; }
+  .group-num { font-family: var(--mono); font-size: .62rem; color: var(--s1); letter-spacing: .1em; margin-right: 10px; opacity: .8; font-weight: 400; }
   .group-badges { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .skill-badge {

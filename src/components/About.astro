@@ -6,10 +6,12 @@ const { data } = Astro.props;
 
 <section id="about">
   <div class="about-inner">
+    <p class="section-eyebrow">02 · profil</p>
     <p class="section-title">Profil</p>
     <div class="about-grid">
       <div class="about-summary">
         <p class="summary-text">{data.summary}</p>
+        <blockquote class="about-quote">{data.quote}</blockquote>
         <div class="about-meta">
           <div class="meta-item">
             <i class="nf nf-md-map_marker"></i>
@@ -44,6 +46,17 @@ const { data } = Astro.props;
           </div>
         ))}
       </div>
+    </div>
+    <div class="facts-grid">
+      {data.facts.map(f => (
+        <div class={`fact fact-${f.color}`}>
+          <div class="fact-label">{f.label}</div>
+          <div class="fact-value">
+            {f.value}{f.unit && <span class="fact-unit">{f.unit}</span>}
+          </div>
+          <div class="fact-sub">{f.sub}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -108,5 +121,75 @@ const { data } = Astro.props;
   .lang-name { font-weight: 600; font-size: .88rem; color: var(--text); }
   .lang-level { font-family: var(--mono); font-size: .72rem; color: var(--mauve); background: rgba(203,166,247,.1); padding: 2px 8px; border-radius: 4px; }
 
-@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-quote {
+    margin: 20px 0 0;
+    padding: 12px 18px;
+    border-left: 2px solid var(--mauve);
+    background: rgba(203,166,247,.06);
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--sub0);
+    border-radius: 0 8px 8px 0;
+    font-style: normal;
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .fact {
+    border: 1px solid var(--s1);
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(24,24,37,.5);
+    transition: border-color .25s, transform .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .fact::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 0% 0%, var(--fc, var(--mauve)), transparent 60%);
+    opacity: .06;
+    transition: opacity .3s;
+    pointer-events: none;
+  }
+  .fact:hover { border-color: var(--fc, var(--mauve)); transform: translateY(-2px); }
+  .fact:hover::before { opacity: .14; }
+  .fact-mauve { --fc: var(--mauve); }
+  .fact-teal  { --fc: var(--teal); }
+  .fact-blue  { --fc: var(--blue); }
+  .fact-green { --fc: var(--green); }
+  .fact-label {
+    font-family: var(--mono);
+    font-size: .62rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--s1);
+    margin-bottom: 8px;
+  }
+  .fact-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--fc, var(--text));
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .fact-unit {
+    font-size: .72rem;
+    font-family: var(--mono);
+    color: var(--sub0);
+    margin-left: 4px;
+    vertical-align: 3px;
+    font-weight: 400;
+  }
+  .fact-sub { font-size: .75rem; color: var(--sub0); }
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
