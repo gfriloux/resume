@@ -29,7 +29,7 @@ export const resume = {
       { label: "Expérience",      value: "28",   unit: "ans", sub: "Linux & systèmes",          color: "mauve" },
       { label: "Serveurs gérés",  value: "200+", unit: "",    sub: "Infrastructure Galilée",     color: "teal"  },
       { label: "Localisation",    value: "40",   unit: "",    sub: "Landes · Remote-first",      color: "blue"  },
-      { label: "Disponibilité",   value: "now",  unit: "",    sub: "Ouvert aux opportunités",    color: "green" },
+      { label: "Disponibilité",   value: "open", unit: "",    sub: "En poste · ouvert aux opportunités", color: "green" },
     ]
   },
   xac: [
@@ -43,7 +43,7 @@ export const resume = {
       role: "Administrateur Système Linux",
       company: "Galilée / DATASOLUTION",
       url: "https://www.datasolution.fr",
-      start: "Mar 2022", end: "Déc 2025",
+      start: "Mar 2022", end: "Aujourd'hui",
       desc: "Gestion d'une infrastructure de plus de 200 serveurs, dont une portion grandissante sur AWS. Écriture d'environnements nix/devbox pour les équipes dev. Construction de projets et images Docker via Nix pour des builds 100% reproductibles.",
       tags: ["Ansible","Terraform","AWS","Nix Flakes","Devbox","Gitlab CI/CD"]
     },
