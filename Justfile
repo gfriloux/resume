@@ -17,6 +17,10 @@ preview: build
 pdf: build
     node scripts/pdf.mjs
 
+# Régénère public/social-card.png (image des previews Open Graph)
+social-card:
+    node scripts/social-card.mjs
+
 clean:
     rm -rf dist node_modules/.cache
 
