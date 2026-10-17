@@ -172,8 +172,7 @@ Le faux terminal et les cartes disparaissent. Leur contenu réel (Terraform, Ans
 - Résumé → devient l'accroche du hero (réécrite, plus courte).
 - Localisation et télétravail → panneau stats (ligne `lieu:`).
 - Langues → une ligne sous les compétences.
-- Lien « Site legacy » → déplacer dans le footer, en petit (lien texte discret).
-- Citation `// rigoureux · passionné…` et grille « facts » → supprimées.
+- Citation `// rigoureux · passionné…`, grille « facts » et lien vers l'ancien site → supprimés.
 
 ### `src/components/Experience.astro`
 - Supprimer la ligne verticale dégradée, les points colorés pulsants, l'animation d'apparition `translateX` et les halos au survol.
@@ -203,7 +202,7 @@ L'unique diplôme tient sur la ligne ci-dessus. Le carré d'icône vide dispara�
 - `<footer id="contact">`, bordure haute `--border`, conteneur flex wrap `space-between` :
   - à gauche : « Un poste en télétravail à pourvoir ? », 24 px, 600 ;
   - à droite : bouton primaire « M'écrire » (`mailto:`) + bouton secondaire « CV en PDF ».
-- Ligne discrète en dessous : © année · lien GitHub · lien « ancienne version du site » (legacy), 14 px `--text-muted`.
+- Ligne discrète en dessous : © année · lien GitHub, 14 px `--text-muted`.
 
 ### Icônes
 Créer `src/components/Icon.astro`, qui rend un `<svg>` inline (trait 2 px, `currentColor`, `aria-hidden="true"`), pour les seules icônes nécessaires : `download`, `mail`, `github`, `external`. Les tracés peuvent venir de Lucide (licence ISC) : copier les `path`, sans ajouter de dépendance. Supprimer toutes les `<i class="nf …">`.
@@ -237,7 +236,6 @@ export const resume = {
     email: "guillaume@friloux.me",
     website: "https://guillaume.friloux.me",
     github: "https://github.com/gfriloux",
-    legacy: "https://legacy.guillaume.friloux.me/",
     pdf: "…", // inchangé
     location: "Landes (40)",
     remote: true,
