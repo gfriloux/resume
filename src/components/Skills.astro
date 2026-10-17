@@ -1,80 +1,88 @@
 ---
 import { resume } from '../data/resume';
-interface Props { data: typeof resume.skills; }
-const { data } = Astro.props;
----
 
-<section id="skills">
-  <div class="skills-inner">
-    <p class="section-eyebrow">04 · compétences</p>
-    <p class="section-title">Compétences</p>
-    <div class="skill-groups">
-      {data.map((group, i) => (
-        <div class="skill-group">
-          <h3 class="group-label" style={`color: ${group.accent}`}>
-            <span class="group-num">{`0${i + 1}`}</span>
-            {group.group}
-          </h3>
-          <div class="group-badges">
-            {group.items.map(item => (
-              <span class="skill-badge" style={`--g: ${group.accent}`}>{item}</span>
-            ))}
-          </div>
+interface Props {
+  data: typeof resume.skills;
+  basics: typeof resume.basics;
+  education: typeof resume.education;
+}
+const { data, basics, education } = Astro.props;
+
+const cards = [
+  { key: 'daily',      label: 'au quotidien',  items: data.daily },
+  { key: 'proficient', label: 'maîtrisé',      items: data.proficient },
+  { key: 'familiar',   label: 'déjà pratiqué', items: data.familiar },
+];
+
+const diplomas = education.map((e) => `${e.degree} — ${e.school}, ${e.end}`);
+const langs    = basics.languages.map((l) => `${l.lang} ${l.level}`);
+const footline = [...diplomas, langs.join(', ')].join(' · ');
+---
+<section id="competences" class="section">
+  <div class="container">
+    <h2>Compétences</h2>
+
+    <div class="grid">
+      {cards.map((c) => (
+        <div class="card" data-level={c.key}>
+          <h3>{c.label}</h3>
+          <p>{c.items.join(', ')}</p>
         </div>
       ))}
     </div>
+
+    <p class="footline">{footline}</p>
   </div>
 </section>
 
-<script>
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll<HTMLElement>('.skill-badge').forEach((badge, i) => {
-        badge.style.transitionDelay = `${i * 40}ms`;
-        badge.classList.add('visible');
-      });
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.skill-group').forEach(g => io.observe(g));
-</script>
-
 <style>
-  #skills { padding: 80px 0; }
-  .skills-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
-
-  .section-title {
-    font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--sub0); display: flex; align-items: center; gap: 14px; margin-bottom: 40px;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
   }
-  .section-title::before { content: ''; display: block; width: 3px; height: 1.1em; background: var(--mauve); border-radius: 2px; box-shadow: 0 0 8px rgba(203,166,247,.5); }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(203,166,247,.25), transparent); }
 
-  .skill-groups { display: flex; flex-direction: column; gap: 32px; }
-  .group-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; }
-  .group-num { font-family: var(--mono); font-size: .62rem; color: var(--s1); letter-spacing: .1em; margin-right: 10px; opacity: .8; font-weight: 400; }
-  .group-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
 
-  .skill-badge {
-    font-family: var(--mono); font-size: .8rem; font-weight: 500;
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
-    color: var(--text);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity .4s ease, transform .4s ease, background .2s, color .2s, border-color .2s, box-shadow .2s;
+  h3 {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
   }
-  .skill-badge.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .card[data-level='daily'] h3 { color: var(--accent); }
+
+  .card p { font-size: 16px; line-height: 1.6; color: var(--text-body); }
+  .card[data-level='daily']      p { font-size: 18px; font-weight: 500; color: var(--text); }
+  .card[data-level='familiar']   p { color: var(--text-muted); }
+
+  .footline {
+    margin-top: 32px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
   }
-  .skill-badge:hover {
-    background: color-mix(in srgb, var(--g) 15%, transparent);
-    color: var(--g);
-    border-color: color-mix(in srgb, var(--g) 35%, transparent);
-    transform: translateY(-2px) scale(1.06);
-    box-shadow: 0 0 12px color-mix(in srgb, var(--g) 25%, transparent);
+
+  @media print {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 7pt !important; }
+    .card {
+      border: .5pt solid var(--border) !important;
+      border-radius: 0 !important;
+      padding: 7pt !important;
+      gap: 4pt !important;
+      break-inside: avoid;
+    }
+    h3 { font-size: 8pt !important; }
+    .card p { font-size: 8.5pt !important; line-height: 1.4 !important; }
+    .card[data-level='daily'] p { font-size: 9pt !important; }
+    .footline { margin-top: 7pt !important; font-size: 8.5pt !important; }
   }
 </style>

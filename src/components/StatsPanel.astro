@@ -1,0 +1,118 @@
+---
+import { resume } from '../data/resume';
+interface Props { data: typeof resume.basics; }
+const { data } = Astro.props;
+---
+<aside class="panel" aria-label="En bref">
+  <p class="panel-head">$ guillaume --stats</p>
+
+  <div class="grid">
+    {data.stats.map((s) => (
+      <div class="cell">
+        <span class="value" class:list={[{ accent: s.accent }]}>{s.value}</span>
+        <span class="label">{s.label}</span>
+      </div>
+    ))}
+  </div>
+
+  <dl class="meta">
+    <div class="meta-row">
+      <dt>cloud:</dt>
+      <dd>{data.cloud}</dd>
+    </div>
+    <div class="meta-row">
+      <dt>lieu:</dt>
+      <dd>{data.location} · {data.remote}</dd>
+    </div>
+  </dl>
+</aside>
+
+<style>
+  .panel {
+    flex: 1 1 380px;
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font-family: var(--mono);
+  }
+
+  .panel-head {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* gap: 1px sur fond --border → les filets de la grille */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .cell {
+    background: var(--surface);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .value {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .value.accent { color: var(--accent); }
+
+  .label {
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  .meta {
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 0 8px; }
+  .meta-row dd { color: var(--text); }
+
+  @media print {
+    .panel {
+      border: .5pt solid var(--border) !important;
+      border-radius: 0 !important;
+      margin-top: 6pt !important;
+    }
+    .panel-head { padding: 4pt 0 3pt !important; border-bottom: .5pt solid var(--border) !important; font-size: 8pt !important; }
+    /*
+     * Les filets de la grille sont des BORDURES, pas le fond qui transparaît
+     * dans un `gap: 1px`. Sans ça ils disparaissent dès que le navigateur
+     * imprime sans les arrière-plans (le réglage par défaut de Ctrl+P).
+     */
+    .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      gap: 0 !important;
+      background: none !important;
+    }
+    .cell {
+      padding: 5pt 7pt !important;
+      gap: 1pt !important;
+      background: none !important;
+      border-right: .5pt solid var(--border) !important;
+    }
+    .cell:last-child { border-right: none !important; }
+    .value { font-size: 13pt !important; }
+    .label { font-size: 7.5pt !important; line-height: 1.3 !important; }
+    .meta { padding: 4pt 0 2pt !important; font-size: 8pt !important; line-height: 1.5 !important; }
+    .panel-head, .meta { padding-inline: 7pt !important; }
+  }
+</style>

@@ -1,0 +1,15 @@
+# Build Astro
+/dist/
+/.astro/
+
+# Dépendances
+/node_modules/
+
+# direnv / nix
+/.direnv/
+
+# Outillage local
+/.claude/
+
+# Exports d'impression de test
+/cv.new.pdf
