@@ -1,9 +1,16 @@
 ---
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/600.css';
 import '../styles/global.css';
-import Nav from '../components/Nav.astro';
 
 const title       = 'CV — Guillaume Friloux';
-const description = "CV de Guillaume Friloux — Administrateur Système Linux, 28 ans d'expérience, expert Terraform, NixOS, AWS.";
+const description =
+  "CV de Guillaume Friloux — Administrateur système Linux, Infrastructure as Code : 200+ serveurs décrits en Terraform, Ansible et Nix. Ouvert aux opportunités en télétravail.";
 const canonical   = new URL(Astro.url.pathname, Astro.site);
 const ogImage     = new URL('social-card.png', Astro.site);
 ---
@@ -14,7 +21,7 @@ const ogImage     = new URL('social-card.png', Astro.site);
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content={description} />
   <title>{title}</title>
-  <link rel="canonical" href={canonical} />
+  <link rel="canonical" href="https://guillaume.friloux.me/" />
 
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -27,10 +34,12 @@ const ogImage     = new URL('social-card.png', Astro.site);
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
+  <!-- TODO : social-card.png date du design précédent — à régénérer (just social-card)
+       une fois le nouveau hero validé. -->
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Guillaume Friloux — Administrateur Système Linux" />
+  <meta property="og:image:alt" content="Guillaume Friloux — Administrateur système Linux" />
   <meta property="profile:first_name" content="Guillaume" />
   <meta property="profile:last_name" content="Friloux" />
 
@@ -38,28 +47,8 @@ const ogImage     = new URL('social-card.png', Astro.site);
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
 </head>
 <body>
-  <div id="progress"></div>
-  <div class="bg-grid"></div>
-  <div class="scanline"></div>
-  <canvas id="bg-canvas"></canvas>
-  <Nav />
-  <main>
-    <slot />
-  </main>
-  <script>
-    // Progress bar
-    window.addEventListener('scroll', () => {
-      const pct = scrollY / (document.body.scrollHeight - innerHeight) * 100;
-      const el = document.getElementById('progress');
-      if (el) el.style.width = Math.min(pct,100)+'%';
-    }, { passive: true });
-  </script>
+  <slot />
 </body>
 </html>

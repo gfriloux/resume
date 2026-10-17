@@ -51,24 +51,31 @@ await page.setViewport({ width: 1280, height: 900 });
 await page.emulateMediaType('print');
 await page.goto(`http://localhost:${PORT}`, { waitUntil: 'networkidle0', timeout: 30_000 });
 
-// Wait for web fonts (Google Fonts, Nerd Fonts CDN)
+// Polices auto-hébergées (@fontsource) — on attend quand même leur décodage
 await page.evaluateHandle('document.fonts.ready');
 
 const outPath = resolve(root, 'dist/CV – Guillaume Friloux.pdf');
 
 const heights = await page.evaluate(() => {
-    const r = (sel) => {
-      const el = document.querySelector(sel);
-      return el ? Math.round(el.getBoundingClientRect().height) : null;
-    };
-    return { hero: r('#hero'), xac: r('#xac'), page: document.documentElement.scrollHeight };
-  });
-  console.log('Heights (px @96dpi):', heights);
+  const r = (sel) => {
+    const el = document.querySelector(sel);
+    return el ? Math.round(el.getBoundingClientRect().height) : null;
+  };
+  return {
+    hero:       r('#hero'),
+    experience: r('#experience'),
+    skills:     r('#competences'),
+    page:       document.documentElement.scrollHeight,
+  };
+});
+console.log('Heights (px @96dpi):', heights);
 
 await page.pdf({
   path: outPath,
   format: 'A4',
-  printBackground: true,
+  // false = ce que produit le Ctrl+P d'un navigateur avec ses réglages par défaut.
+  // La feuille print ne doit dépendre d'aucun aplat : filets = bordures.
+  printBackground: false,
   margin: { top: '1.5cm', right: '1.5cm', bottom: '1.5cm', left: '1.5cm' },
   tagged: true,
 });

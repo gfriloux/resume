@@ -1,97 +1,77 @@
 import puppeteer from 'puppeteer-core';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // Génère public/social-card.png (1200×630) — l'image des previews Open Graph.
-// À relancer si le nom, le titre ou les badges du Hero changent :
+// À relancer si le hero change (nom, titre, accroche, stats) :
 //   nix develop --command node scripts/social-card.mjs
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root      = resolve(__dirname, '..');
 
-// Node 22 déstructure les types TS nativement — resume.ts reste la source de vérité
+// Node 22 lit resume.ts nativement — la source de vérité reste unique
 const { resume } = await import(resolve(root, 'src/data/resume.ts'));
-const { name, title, yearsExp, location, website } = resume.basics;
+const { name, title, subtitle, availability, website, stats } = resume.basics;
 
-// Même liste que src/components/Hero.astro
-const badges = ['28 ans Linux', 'Terraform', 'NixOS', 'AWS', 'C / Rust'];
+// Polices embarquées en base64 : le rendu ne dépend d'aucune requête réseau
+const face = (family, pkg, file, weight) => {
+  const b64 = readFileSync(resolve(root, 'node_modules/@fontsource', pkg, 'files', file)).toString('base64');
+  return `@font-face{font-family:'${family}';font-style:normal;font-weight:${weight};` +
+         `src:url(data:font/woff2;base64,${b64}) format('woff2')}`;
+};
+
+const fonts = [
+  face('IBM Plex Sans', 'ibm-plex-sans', 'ibm-plex-sans-latin-400-normal.woff2', 400),
+  face('IBM Plex Sans', 'ibm-plex-sans', 'ibm-plex-sans-latin-600-normal.woff2', 600),
+  face('IBM Plex Sans', 'ibm-plex-sans', 'ibm-plex-sans-latin-700-normal.woff2', 700),
+  face('JetBrains Mono', 'jetbrains-mono', 'jetbrains-mono-latin-400-normal.woff2', 400),
+  face('JetBrains Mono', 'jetbrains-mono', 'jetbrains-mono-latin-600-normal.woff2', 600),
+].join('');
 
 const html = `<!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* Catppuccin Mocha — cf. src/styles/global.css */
+  ${fonts}
+  /* Mêmes tokens que src/styles/global.css */
   :root {
-    --bg: #1e1e2e; --s0: #313244; --s1: #45475a;
-    --text: #cdd6f4; --sub0: #a6adc8; --mauve: #cba6f7; --green: #a6e3a1;
+    --bg: #1e1e2e; --surface: #181825; --border: #313244; --border-strong: #45475a;
+    --text: #cdd6f4; --text-body: #bac2de; --text-muted: #a6adc8;
+    --accent: #cba6f7; --ok: #a6e3a1;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    width: 1200px; height: 630px; overflow: hidden; position: relative;
+    width: 1200px; height: 630px; overflow: hidden;
     background: var(--bg); color: var(--text);
-    font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+    font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased;
   }
-  .grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(203,166,247,.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(203,166,247,.055) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 90% 80% at 30% 35%, #000 30%, transparent 78%);
+  .inner { height: 100%; padding: 72px 80px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+  .avail {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 18px; border: 1px solid var(--border-strong); border-radius: 999px;
+    font-size: 20px; color: var(--ok);
   }
-  .glow {
-    position: absolute; width: 760px; height: 760px; left: -220px; top: -340px;
-    background: radial-gradient(circle, rgba(203,166,247,.16), transparent 62%);
-  }
-  .inner { position: relative; padding: 76px 80px; height: 100%;
-           display: flex; flex-direction: column; justify-content: center; }
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace; font-size: 19px; color: var(--mauve);
-    display: flex; align-items: center; gap: 12px; letter-spacing: .06em; margin-bottom: 22px;
-  }
-  .eyebrow .line { width: 38px; height: 1px; background: var(--mauve); }
-  h1 { font-size: 92px; font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 20px; }
-  .prompt-line {
-    font-family: 'JetBrains Mono', monospace; font-size: 29px; font-weight: 500;
-    display: flex; align-items: center; gap: 11px; margin-bottom: 38px; color: var(--mauve);
-  }
-  .prompt-line .chevron { color: var(--green); }
-  .prompt-line .cursor { width: 15px; height: 30px; background: var(--mauve); border-radius: 2px; }
-  .badges { display: flex; gap: 12px; margin-bottom: 44px; }
-  .badge {
-    font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500;
-    padding: 9px 19px; border: 1px solid rgba(203,166,247,.3); border-radius: 999px;
-    background: rgba(203,166,247,.08); color: var(--mauve);
-  }
-  .meta {
-    font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--sub0);
-    display: flex; align-items: center; gap: 16px;
-  }
-  .meta .sep { color: var(--s1); }
-  .meta .url { color: var(--text); }
-  .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 5px;
-          background: linear-gradient(90deg, var(--mauve), #89b4fa, #94e2d5, var(--green)); }
+  .avail .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+  h1 { font-size: 84px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 28px; color: var(--accent); }
+  .stats { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-top: 6px; }
+  .cell { flex: 1; background: var(--surface); padding: 20px 22px; display: flex; flex-direction: column; gap: 4px; }
+  .value { font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 600; white-space: nowrap; }
+  .cell.accent .value { color: var(--accent); }
+  .label { font-size: 16px; line-height: 1.35; color: var(--text-muted); }
+  .url { font-family: 'JetBrains Mono', monospace; font-size: 20px; color: var(--text-muted); }
 </style></head>
 <body>
-  <div class="grid"></div>
-  <div class="glow"></div>
   <div class="inner">
-    <p class="eyebrow"><span class="line"></span> ~/sysadmin --senior</p>
+    <p class="avail"><span class="dot"></span>${availability}</p>
     <h1>${name}</h1>
-    <div class="prompt-line">
-      <span class="chevron">&#10095;</span><span>${title}</span><span class="cursor"></span>
+    <p class="subtitle">${title} &#183; ${subtitle}</p>
+    <div class="stats">
+      ${stats.map(s => `<div class="cell${s.accent ? ' accent' : ''}">
+        <span class="value">${s.value}</span><span class="label">${s.label}</span></div>`).join('')}
     </div>
-    <div class="badges">${badges.map(b => `<span class="badge">${b}</span>`).join('')}</div>
-    <div class="meta">
-      <span class="url">${website.replace('https://', '')}</span>
-      <span class="sep">&#183;</span><span>${yearsExp} ans d'expérience</span>
-      <span class="sep">&#183;</span><span>${location} · Remote</span>
-    </div>
+    <p class="url">${website.replace('https://', '')}</p>
   </div>
-  <div class="rule"></div>
 </body></html>`;
 
 const browser = await puppeteer.launch({

@@ -1,103 +1,138 @@
+/**
+ * Unique source de vérité pour le contenu du CV.
+ * Aucun texte affiché ne doit être codé en dur dans les composants.
+ *
+ * Dates au format ISO `YYYY-MM` ; `end: null` = poste en cours.
+ * Helpers d'affichage : src/lib/dates.ts
+ *
+ * Ce fichier est aussi importé tel quel par Node (`scripts/social-card.mjs`) :
+ * il ne doit contenir **aucun import** — Node exigerait une extension explicite
+ * que Vite et TypeScript traitent différemment.
+ */
+
+/** Première install Linux. Le « N ans » du panneau s'en déduit au build. */
+const LINUX_SINCE = 1997;
+const linuxYears = new Date().getFullYear() - LINUX_SINCE;
+
 export const resume = {
   basics: {
     name: "Guillaume Friloux",
-    title: "Administrateur Système Linux",
-    age: 43,
-    yearsExp: 28,
-    location: "Landes (40)",
-    remote: true,
+    title: "Administrateur système Linux",
+    subtitle: "Infrastructure as Code",
+    availability: "En poste · ouvert aux opportunités en télétravail",
+    pitch:
+      "Je fais tourner plus de 200 serveurs, sur site et sur AWS, entièrement décrits en code : Terraform, Ansible et Nix pour des environnements reproductibles. Développeur C/Rust de 2007 à 2021, je sais descendre au bas niveau quand quelque chose casse.",
     email: "guillaume@friloux.me",
     website: "https://guillaume.friloux.me",
     github: "https://github.com/gfriloux",
-    legacy: "https://legacy.guillaume.friloux.me/",
     pdf: "https://guillaume.friloux.me/CV%20%E2%80%93%20Guillaume%20Friloux.pdf",
-    summary: "Administrateur Linux depuis plus de 25 ans, avec une expérience récente sur des infrastructures AWS. À l'aise avec l'automatisation (Ansible, Terraform), les environnements Docker, et la gestion de configurations reproductibles avec Nix. Profil atypique avec un background développeur C/Rust, utile pour diagnostiquer des problèmes bas niveau ou outiller l'équipe.",
+    location: "Landes (40)",
+    remote: "100 % remote",
     languages: [
-      { lang: "Français", level: "Natif" },
-      { lang: "Anglais", level: "Lu / Écrit" }
+      { lang: "Français", level: "natif" },
+      { lang: "Anglais", level: "lu et écrit" },
     ],
-    status: {
-      uptime: "28y",
-      role: "sysadmin",
-      stack: "NixOS / Terraform",
-      load: "0.42",
-      remote: "yes",
-      coffee: "∞"
-    },
-    quote: "// rigoureux · passionné · pragmatique · remote-native",
-    facts: [
-      { label: "Expérience",      value: "28",   unit: "ans", sub: "Linux & systèmes",          color: "mauve" },
-      { label: "Serveurs gérés",  value: "200+", unit: "",    sub: "Infrastructure Galilée",     color: "teal"  },
-      { label: "Localisation",    value: "40",   unit: "",    sub: "Landes · Remote-first",      color: "blue"  },
-      { label: "Disponibilité",   value: "open", unit: "",    sub: "En poste · ouvert aux opportunités", color: "green" },
-    ]
+    linuxSince: LINUX_SINCE,
+    stats: [
+      { value: "200+",                          label: "serveurs gérés aujourd'hui", accent: true },
+      { value: `${linuxYears} ans`,             label: "sur Linux" },
+      { value: "1 500",                         label: "serveurs supervisés par un outil que j'ai écrit" },
+      { value: "C → Rust",                      label: "migrations menées" },
+    ],
+    cloud: "AWS · sur site",
+    contactTitle: "Un poste en télétravail à pourvoir ?",
   },
-  xac: [
-    { tool: "Terraform", accent: "#cba6f7", icon: "nf-dev-terraform", tag: "IaC", desc: "Provisionnement AWS en code versionné. 200+ serveurs gérés." },
-    { tool: "Ansible", accent: "#f38ba8", icon: "nf-dev-ansible", tag: "Automation", desc: "Configuration et déploiement idempotent sur l'ensemble du parc." },
-    { tool: "NixOS", accent: "#89b4fa", icon: "nf-linux-nixos", tag: "OS", desc: "Système reproductible déclaratif. Rollbacks atomiques, builds déterministes." },
-    { tool: "Nix Flakes", accent: "#94e2d5", icon: "nf-md-snowflake", tag: "Reproducible", desc: "Envs dev portables (Devbox). Images Docker buildées via Nix." }
-  ],
+
+  /**
+   * Signature visuelle sous le hero : les outils touchés tous les jours.
+   * `icon` doit exister dans src/components/Logo.astro.
+   */
+  signature: [
+    { name: "Terraform", icon: "terraform", note: "toute l'infra AWS en code" },
+    { name: "Ansible",   icon: "ansible",   note: "configuration du parc" },
+    { name: "NixOS",     icon: "nixos",     note: "systèmes reproductibles" },
+    { name: "Docker",    icon: "docker",    note: "images & conteneurs" },
+  ] as const,
+
   experience: [
     {
-      role: "Administrateur Système Linux",
+      role: "Administrateur système Linux",
       company: "Galilée / DATASOLUTION",
       url: "https://www.datasolution.fr",
-      start: "Mar 2022", end: "Aujourd'hui",
-      desc: "Gestion d'une infrastructure de plus de 200 serveurs, dont une portion grandissante sur AWS. Écriture d'environnements nix/devbox pour les équipes dev. Construction de projets et images Docker via Nix pour des builds 100% reproductibles.",
-      tags: ["Ansible","Terraform","AWS","Nix Flakes","Devbox","Gitlab CI/CD"]
+      start: "2022-03",
+      end: null,
+      highlights: [
+        "Infrastructure de 200+ serveurs, dont une part croissante migrée sur AWS : VPC, EC2, Lambda, KMS, Secrets Manager et CloudFront décrits en Terraform.",
+        "Environnements de dev Nix / Devbox pour les équipes de développement.",
+        "Images Docker construites avec Nix : builds 100 % reproductibles.",
+      ],
+      tags: ["Ansible", "Terraform", "AWS", "Nix Flakes", "Devbox", "GitLab CI/CD"],
     },
     {
-      role: "Architecte Logiciel",
+      role: "Architecte logiciel",
       company: "ASP France / AMTrust IT / DSIIG",
       url: "https://www.amtrust.fr",
-      start: "Nov 2013", end: "Déc 2021",
-      desc: "Portage d'applications sous Mac OSX, FreeBSD, GNU/Linux, Windows. Migration de projets C vers Rust. Auteur d'un système de monitoring via XMPP gérant jusqu'à plusieurs centaines de serveurs. Conception d'API REST pour l'ensemble des projets.",
-      tags: ["C","Rust","Docker","Rancher","API REST"]
+      start: "2013-11",
+      end: "2021-12",
+      highlights: [
+        "Portage d'applications sur macOS, FreeBSD, GNU/Linux et Windows.",
+        "Migration de projets C vers Rust.",
+        "Auteur d'un système de supervision par XMPP couvrant plusieurs centaines de serveurs ; API REST pour l'ensemble des projets.",
+      ],
+      tags: ["C", "Rust", "Docker", "Rancher", "API REST"],
     },
     {
-      role: "Analyste Développeur C",
+      role: "Analyste développeur C",
       company: "ASP64",
-      start: "Sep 2007", end: "Nov 2013",
-      desc: "Recherche de performances et sécurité. Développement d'une solution de monitoring XMPP déployée sur jusqu'à 1 500 serveurs. Projet d'installation automatisée de serveurs via PXE boot. Intégration des librairies EFL.",
-      tags: ["C","XMPP","EFL","MySQL"]
+      start: "2007-09",
+      end: "2013-11",
+      highlights: [
+        "Supervision XMPP déployée sur jusqu'à 1 500 serveurs.",
+        "Installation automatisée de serveurs par PXE boot ; travail sur la performance et la sécurité.",
+      ],
+      tags: ["C", "XMPP", "EFL", "MySQL"],
     },
     {
-      role: "Administrateur Réseau",
-      company: "Base Aérienne 118",
-      url: "https://fr.wikipedia.org/wiki/Base_a%C3%A9rienne_118_Mont-de-Marsan",
-      start: "Mar 2006", end: "Jun 2006",
-      desc: "Stage de fin d'études. Configuration de routeurs sur réseaux confidentiel et classifié défense. Remplacement de la passerelle internet avec proxy authentifié et filtrage.",
-      tags: ["Cisco","iptables","Squid"]
-    },
-    {
-      role: "Développeur Web",
+      role: "Développeur web",
       company: "Mairie d'Ustaritz",
       url: "http://www.ustaritz.fr/",
-      start: "Avr 2007", end: "Jun 2007",
-      desc: "Ré-écriture complète du site internet.",
-      tags: ["PHP"]
+      start: "2007-04",
+      end: "2007-06",
+      early: true,
     },
     {
-      role: "Développeur Web (Projet scolaire)",
+      role: "Administrateur réseau",
+      company: "Base aérienne 118",
+      url: "https://fr.wikipedia.org/wiki/Base_a%C3%A9rienne_118_Mont-de-Marsan",
+      start: "2006-03",
+      end: "2006-06",
+      early: true,
+    },
+    {
+      role: "Développeur web (projet scolaire)",
       company: "5e Régiment d'Hélicoptères de Combat",
-      start: "Jan 2005", end: "Jun 2005",
-      desc: "Logiciel de gestion de stock informatique.",
-      tags: ["PHP","MySQL"]
-    }
+      start: "2005-01",
+      end: "2005-06",
+      early: true,
+    },
   ],
-  skills: [
-    { group: "Infrastructure as Code", accent: "#cba6f7", items: ["Terraform","Ansible","NixOS","Nix Flakes","Devbox","Gitlab CI/CD"] },
-    { group: "Cloud & Containers",     accent: "#89b4fa", items: ["AWS","Docker","Docker Compose","Rancher","Traefik"] },
-    { group: "Systèmes",               accent: "#a6e3a1", items: ["Archlinux","Debian","FreeBSD","Gentoo","NixOS"] },
-    { group: "Programmation",          accent: "#f38ba8", items: ["C","Rust","Shellscript","MySQL"] },
-    { group: "Protocoles & Outils",    accent: "#94e2d5", items: ["XMPP","HTTP","REST API","iptables","Squid"] }
-  ],
+
+  /** Phrase unique qui résume les expériences `early: true`. */
+  earlyTitle: "Débuts",
+  earlyNote:
+    "Stage d'administration réseau à la Base aérienne 118 (routeurs sur réseaux classifiés défense, proxy filtrant) · Développement web pour la mairie d'Ustaritz et le 5e RHC.",
+
+  skills: {
+    daily:      ["Terraform", "Ansible", "NixOS", "Nix Flakes", "AWS", "Docker", "GitLab CI/CD"],
+    proficient: ["C", "Rust", "Shell", "Debian", "Arch Linux", "FreeBSD", "Devbox", "Traefik", "iptables"],
+    familiar:   ["Rancher", "Gentoo", "XMPP", "Squid", "MySQL", "Cisco"],
+  },
+
   education: [
     {
       school: "IUT des Pays de l'Adour",
-      degree: "Licence — Réseaux & Télécommunications",
-      start: "Sep 2005", end: "Jul 2006"
-    }
-  ]
+      degree: "Licence Réseaux & Télécommunications",
+      end: "2006",
+    },
+  ],
 };

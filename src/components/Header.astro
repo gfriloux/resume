@@ -1,0 +1,23 @@
+---
+/**
+ * Bandeau d'identité. Plus de liens de section : la page est courte et tient
+ * sur une seule page à l'impression — trois ancres n'y servaient qu'à meubler.
+ */
+interface Props { email: string; }
+const { email } = Astro.props;
+---
+<header class="no-print">
+  <p class="container prompt">{email} <span class="caret">~$</span></p>
+</header>
+
+<style>
+  header { border-bottom: 1px solid var(--border); }
+
+  .prompt {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-block: 18px;
+  }
+  .caret { color: var(--accent); }
+</style>
